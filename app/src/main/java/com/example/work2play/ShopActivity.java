@@ -3,6 +3,8 @@ package com.example.work2play;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -24,7 +26,7 @@ public class ShopActivity extends AppCompatActivity {
     static ArrayList<String> rewards;
     static ListView rewardList;
     static ArrayAdapter<String> arrayAdapterRewards;
-
+    static SQLiteDatabase rewardsDataBase;
 
     public void gotoTasks (View view) {
         finish();
@@ -35,8 +37,9 @@ public class ShopActivity extends AppCompatActivity {
         startActivity(reward);
     }
 
-    public static void addReward(String newTask, int coins) {
-        rewards.add(Integer.toString(coins) + " - " + newTask);
+    public static void addReward(String newReward, int coins) {
+        rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins) VALUES ('"+ newReward +"', '"+ coins +"')");
+        rewards.add(Integer.toString(coins) + " - " + newReward);
         rewardList.setAdapter(arrayAdapterRewards);
 
     }
@@ -72,11 +75,25 @@ public class ShopActivity extends AppCompatActivity {
 
         rewards = new ArrayList<String>();
 
+        coins = savedCoins.getInt("coins", 0);
 
-        rewards.add("10 - TEst");
-        rewards.add("30 - Jo");
-        rewards.add("05 - ha");
 
+        rewardsDataBase = this.openOrCreateDatabase("rewards", MODE_PRIVATE, null);
+        rewardsDataBase.execSQL("CREATE TABLE IF NOT EXISTS rewards (reward VARCHAR, coins INT(2))");
+
+        Cursor c = rewardsDataBase.rawQuery("SELECT * FROM rewards", null);
+
+        int taskIndex = c.getColumnIndex("reward");
+        int coinsIndex = c.getColumnIndex("coins");
+
+        //rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins) VALUES ('Test', 33)");
+
+        if(c.moveToFirst()){
+            do{
+                rewards.add(c.getString(coinsIndex) + " - " + c.getString(taskIndex));
+            }
+            while (c.moveToNext());
+        }
 
 
 
@@ -112,6 +129,11 @@ public class ShopActivity extends AppCompatActivity {
         rewardList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String deleteEntry = rewards.get(position);
+                String[] seperatedEntry = deleteEntry.split(" - ");
+                Log.i("Delete", seperatedEntry[1] + " nene");
+
+                rewardsDataBase.execSQL("DELETE FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
                 rewards.remove(position);
 
                 rewardList.setAdapter(arrayAdapterRewards);

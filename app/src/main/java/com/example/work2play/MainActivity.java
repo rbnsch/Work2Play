@@ -3,6 +3,8 @@ package com.example.work2play;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<String> tasks;
     static ListView taskList;
     static ArrayAdapter<String> arrayAdapterTasks;
+    static SQLiteDatabase tasksDataBase;
 
 
 
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void addTask(String newTask, int coins) {
+        tasksDataBase.execSQL("INSERT INTO tasks (task, coins) VALUES ('"+ newTask +"', '"+ coins +"')");
         tasks.add(Integer.toString(coins) + " - " + newTask);
         taskList.setAdapter(arrayAdapterTasks);
 
@@ -71,13 +75,22 @@ public class MainActivity extends AppCompatActivity {
         coins = savedCoins.getInt("coins", 0);
         coinsTextTasks.setText(String.valueOf(coins) + " Coins");
 
+        tasksDataBase = this.openOrCreateDatabase("tasks", MODE_PRIVATE, null);
+        tasksDataBase.execSQL("CREATE TABLE IF NOT EXISTS tasks (task VARCHAR, coins INT(2))");
 
+        Cursor c = tasksDataBase.rawQuery("SELECT * FROM tasks", null);
 
+        int taskIndex = c.getColumnIndex("task");
+        int coinsIndex = c.getColumnIndex("coins");
 
-        tasks.add("10 - Lernen");
-        tasks.add("05 - Kochen");
-        tasks.add("20 - Hausaufgaben");
+        //tasksDataBase.execSQL("INSERT INTO tasks (task, coins) VALUES ('Test', 33)");
 
+        if(c.moveToFirst()){
+            do{
+                tasks.add(c.getString(coinsIndex) + " - " + c.getString(taskIndex));
+            }
+            while (c.moveToNext());
+        }
 
 
         arrayAdapterTasks = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tasks);
@@ -111,6 +124,11 @@ public class MainActivity extends AppCompatActivity {
         taskList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String deleteEntry = tasks.get(position);
+                String[] seperatedEntry = deleteEntry.split(" - ");
+                Log.i("Delete", seperatedEntry[1] + " nene");
+
+                tasksDataBase.execSQL("DELETE FROM tasks WHERE task = ('" + seperatedEntry[1] + "')");
                 tasks.remove(position);
 
                 taskList.setAdapter(arrayAdapterTasks);
