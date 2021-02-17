@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         coinsTextTasks.setText(String.valueOf(coins) + " Coins");
 
         tasksDataBase = this.openOrCreateDatabase("tasks", MODE_PRIVATE, null);
+        //erstellt Datenbank, wenn nicht vorhanden
         tasksDataBase.execSQL("CREATE TABLE IF NOT EXISTS tasks (task VARCHAR, coins INT(2))");
 
         Cursor c = tasksDataBase.rawQuery("SELECT * FROM tasks", null);
