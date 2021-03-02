@@ -35,5 +35,40 @@
             android:id="@+id/listTasks"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tasksCoins"
-            app:layout_constraintBottom_toTopOf="@+id/shopButton"/>
+            app:layout_constraintBottom_toTopOf="@+id/shopButton" android:layout_marginTop="100dp"/>
+    <com.google.android.material.tabs.TabLayout
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp" android:id="@+id/tabBar">
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabHabits"
+                android:text="Habits"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabTasks"
+                android:text="Tasks"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabRewards"
+                android:text="Rewards"/>
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
