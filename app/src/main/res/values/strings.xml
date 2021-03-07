@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Work2Play</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="tab_text_1">Habits</string>
+    <string name="tab_text_2">Tasks</string>
+    <string name="tab_text_3">Rewards</string>
 </resources>

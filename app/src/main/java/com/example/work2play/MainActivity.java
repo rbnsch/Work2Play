@@ -1,144 +1,58 @@
 package com.example.work2play;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.text.Editable;
-import android.util.Log;
-import android.view.View;
-import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.content.Intent;
-
-import java.util.ArrayList;
+import android.widget.TextView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
+import com.example.work2play.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     static int coins = 0;
 
     static SharedPreferences savedCoins;
+    static TextView coinsText;
 
 
-    static TextView coinsTextTasks;
-
-    static ArrayList<String> tasks;
-    static ListView taskList;
-    static ArrayAdapter<String> arrayAdapterTasks;
-    static SQLiteDatabase tasksDataBase;
-
-
-
-    public void gotoShop(View view) {
-        Intent shop = new Intent(getApplicationContext(), ShopActivity.class);
-        startActivity(shop);
+    public static int getCoins() {
+        return coins;
     }
 
-
-    public void gotoAddTask(View view) {
-        Intent add = new Intent(getApplicationContext(), AddTasks.class);
-        startActivity(add);
+    public static void setCoins(int newCoins) {
+        coins = newCoins;
+        coinsText.setText(String.valueOf(coins) + " Coins");
+        savedCoins.edit().putInt("coins", coins).apply();
     }
-
-    public static void addTask(String newTask, int coins) {
-        tasksDataBase.execSQL("INSERT INTO tasks (task, coins) VALUES ('"+ newTask +"', '"+ coins +"')");
-        tasks.add(Integer.toString(coins) + " - " + newTask);
-        taskList.setAdapter(arrayAdapterTasks);
-
-    }
-
-    public static void setCoins() {
-        coins = savedCoins.getInt("coins", 0);
-        coinsTextTasks.setText(String.valueOf(coins) + " Coins");
-    }
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
+        setContentView(R.layout.activity_main3);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+        FloatingActionButton fab = findViewById(R.id.fab);
 
         savedCoins = this.getSharedPreferences("com.example.work2play", Context.MODE_PRIVATE);
-
-        coinsTextTasks = (TextView) findViewById(R.id.tasksCoins);
-        tasks = new ArrayList<String>();
-        taskList = findViewById(R.id.listTasks);
-
-
+        coinsText = (TextView) findViewById(R.id.coins);
 
         coins = savedCoins.getInt("coins", 0);
-        coinsTextTasks.setText(String.valueOf(coins) + " Coins");
+        coinsText.setText(String.valueOf(coins) + " Coins");
 
-        tasksDataBase = this.openOrCreateDatabase("tasks", MODE_PRIVATE, null);
-        //erstellt Datenbank, wenn nicht vorhanden
-        tasksDataBase.execSQL("CREATE TABLE IF NOT EXISTS tasks (task VARCHAR, coins INT(2))");
-
-        Cursor c = tasksDataBase.rawQuery("SELECT * FROM tasks", null);
-
-        int taskIndex = c.getColumnIndex("task");
-        int coinsIndex = c.getColumnIndex("coins");
-
-        //tasksDataBase.execSQL("INSERT INTO tasks (task, coins) VALUES ('Test', 33)");
-
-        if(c.moveToFirst()){
-            do{
-                tasks.add(c.getString(coinsIndex) + " - " + c.getString(taskIndex));
-            }
-            while (c.moveToNext());
-        }
-
-
-        arrayAdapterTasks = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tasks);
-        taskList.setAdapter(arrayAdapterTasks);
-
-
-        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String newCoinsString = tasks.get(i).substring(0, 2);
-
-                int newCoins = Integer.parseInt(newCoinsString);
-
-                coins += newCoins;
-
-                savedCoins.edit().putInt("coins", coins).apply();
-
-
-                //savedCoins.getInt("coins", 0);
-
-                //coinsTextTasks.setText(String.valueOf(coins) + " Coins");
-
-                coinsTextTasks.setText(String.valueOf(savedCoins.getInt("coins", 0)) + " Coins");
-
-            }
-
-        });
-
-
-        taskList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String deleteEntry = tasks.get(position);
-                String[] seperatedEntry = deleteEntry.split(" - ");
-                Log.i("Delete", seperatedEntry[1] + " nene");
-
-                tasksDataBase.execSQL("DELETE FROM tasks WHERE task = ('" + seperatedEntry[1] + "')");
-                tasks.remove(position);
-
-                taskList.setAdapter(arrayAdapterTasks);
-                return true;
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
-
-
-
-
     }
 }
