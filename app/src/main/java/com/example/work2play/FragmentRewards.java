@@ -45,7 +45,6 @@ public class FragmentRewards extends Fragment {
         int taskIndex = c.getColumnIndex("reward");
         int coinsIndex = c.getColumnIndex("coins");
 
-        //rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins) VALUES ('Test', 33)");
 
         if(c.moveToFirst()){
             do{
@@ -57,17 +56,6 @@ public class FragmentRewards extends Fragment {
         arrayAdapterRewards = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, rewards);
         rewardList.setAdapter(arrayAdapterRewards);
 
-
-        /*
-        zu Funkton zum Rewards hinzufügen machen
-        String newReward = "Netflix";
-        int coins = 25;
-
-        rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins) VALUES ('"+ newReward +"', '"+ coins +"')");
-        rewards.add(Integer.toString(coins) + " - " + newReward);
-        rewardList.setAdapter(arrayAdapterRewards);
-
-   */
 
 
 
