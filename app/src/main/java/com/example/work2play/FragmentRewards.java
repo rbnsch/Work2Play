@@ -108,4 +108,11 @@ public class FragmentRewards extends Fragment {
         });
         return view;
     }
+
+    public static void addReward(String newReward, int coins) {
+        rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins) VALUES ('"+ newReward +"', '"+ coins +"')");
+        rewards.add(Integer.toString(coins) + " - " + newReward);
+        rewardList.setAdapter(arrayAdapterRewards);
+    }
+
 }

@@ -18,7 +18,7 @@ public class AddTasks extends AppCompatActivity {
         EditText name = findViewById(R.id.editTextAufgabe);
         EditText coins = (EditText) findViewById(R.id.editTextAufgabeCoins);
 
-        MainActivity3.addTask(name.getText().toString(), Integer.parseInt(String.valueOf(coins.getText().toString())));
+        FragmentTasks.addTask(name.getText().toString(), Integer.parseInt(String.valueOf(coins.getText().toString())));
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
 

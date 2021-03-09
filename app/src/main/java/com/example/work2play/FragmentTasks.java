@@ -30,6 +30,7 @@ public class FragmentTasks extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
 
         taskList = view.findViewById(R.id.listTasks);
@@ -85,4 +86,12 @@ public class FragmentTasks extends Fragment {
 
         return view;
     }
+
+    public static void addTask(String newTask, int coins) {
+        tasksDataBase.execSQL("INSERT INTO tasks (task, coins) VALUES ('"+ newTask +"', '"+ coins +"')");
+        tasks.add(Integer.toString(coins) + " - " + newTask);
+        taskList.setAdapter(arrayAdapterTasks);
+
+    }
+
 }

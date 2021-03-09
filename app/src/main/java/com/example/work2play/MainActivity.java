@@ -1,8 +1,10 @@
 package com.example.work2play;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,12 +32,13 @@ public class MainActivity extends AppCompatActivity {
         savedCoins.edit().putInt("coins", coins).apply();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        final ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
@@ -50,9 +53,30 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               // Log.i("Delete", shownTab + " nene");
+                switch (viewPager.getCurrentItem()) {
+                    case 0:
+                        Snackbar.make(view, "Replace with youuuuur own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        break;
+                    case 1:
+                        Intent addTask = new Intent(getApplicationContext(), AddTasks.class);
+                        startActivity(addTask);
+                        break;
+                    case 2:
+                        Intent addReward = new Intent(getApplicationContext(), AddRewards.class);
+                        startActivity(addReward);
+                        break;
+                    default:
+                        int a =5;
+                        break;
+                }
+
+
+
             }
         });
+
     }
+
+
 }
