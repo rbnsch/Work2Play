@@ -25,7 +25,7 @@ public class AddRewards extends AppCompatActivity {
         EditText name = findViewById(R.id.editTextBelohnung);
         EditText coins = (EditText) findViewById(R.id.editTextBelohnungCoins);
 
-        ShopActivity.addReward(name.getText().toString(), Integer.parseInt(String.valueOf(coins.getText().toString())));
+        FragmentRewards.addReward(name.getText().toString(), Integer.parseInt(String.valueOf(coins.getText().toString())));
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
 
