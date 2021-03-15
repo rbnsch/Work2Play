@@ -38,7 +38,7 @@ public class FragmentRewards extends Fragment {
         rewards = new ArrayList<String>();
 
         rewardsDataBase = getActivity().openOrCreateDatabase("rewards", Context.MODE_PRIVATE, null);
-        rewardsDataBase.execSQL("CREATE TABLE IF NOT EXISTS rewards (reward VARCHAR, coins INT(2))");
+        rewardsDataBase.execSQL("CREATE TABLE IF NOT EXISTS rewards (reward VARCHAR, coins INT(2), multiple INT(1))");
 
         Cursor c = rewardsDataBase.rawQuery("SELECT * FROM rewards", null);
 
@@ -75,6 +75,10 @@ public class FragmentRewards extends Fragment {
                 } else {
                     coins -= newCoins;
                     MainActivity.setCoins(coins);
+                    String deleteEntry = rewards.get(i);
+                    String[] seperatedEntry = deleteEntry.split(" - ");
+                    //Cursor c = rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
+
                 }
             }
 
@@ -97,8 +101,10 @@ public class FragmentRewards extends Fragment {
         return view;
     }
 
-    public static void addReward(String newReward, int coins) {
-        rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins) VALUES ('"+ newReward +"', '"+ coins +"')");
+    public static void addReward(String newReward, int coins, boolean multiple) {
+        Log.i("Multiple:", Boolean.toString(multiple));
+        int mu = (multiple) ? 1 : 0;
+        rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins, multiple) VALUES ('"+ newReward +"', '"+ coins + "', '" + mu +"')");
         rewards.add(Integer.toString(coins) + " - " + newReward);
         rewardList.setAdapter(arrayAdapterRewards);
     }
