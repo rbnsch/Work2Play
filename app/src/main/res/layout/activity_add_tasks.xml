@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:inputType="numberSigned"
             android:ems="10"
-            android:id="@+id/editTextAufgabeCoins"
+            android:id="@+id/editTextAufgabeBeschreibung"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:textColor="#6E6E6E" android:layout_marginTop="16dp"
@@ -51,12 +51,98 @@
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp" android:textColor="#000000"/>
     <TextView
-            android:text="Wie viele Coins bekommst du als Belohnung?"
+            android:text="Beschreibung:"
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/textViewFrage2"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"
             android:textColor="#000000" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/editTextAufgabe"/>
+    <TextView
+            android:text="Wie viele Coins bekommst du beim Erledigen?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewFrage3"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/editTextAufgabeBeschreibung"/>
+    <SeekBar
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/seekBarTasks"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" tools:visibility="visible"
+            android:progress="10" android:max="98"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewFrage3"/>
+    <TextView
+            android:text="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textViewCoinsTasks"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seekBarTasks"/>
+    <TextView
+            android:text="Bis wann muss der Task erledigt sein?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewFrage4"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewCoinsTasks"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/editTextDate"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#6E6E6E" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewFrage4"/>
+    <TextView
+            android:text="Mehrfach einlösbar?"
+            android:layout_width="0dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            android:layout_marginEnd="96dp" android:layout_marginStart="8dp" android:id="@+id/textViewFrage5"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextDate"/>
+    <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  android:id="@+id/switchMultipleTask" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@id/textViewFrage5"
+            app:layout_constraintTop_toBottomOf="@id/editTextDate"/>
+    <TextView
+            android:text="Wiederholfreuenz?"
+            android:layout_width="0dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            android:layout_marginEnd="96dp" android:layout_marginStart="8dp" android:id="@+id/textViewFrage6"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewFrage5"/>
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/spinnerWdh" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@id/textViewFrage6"
+            app:layout_constraintTop_toBottomOf="@id/switchMultipleTask"/>
+    <TextView
+            android:text="Projekt"
+            android:layout_width="0dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            android:layout_marginEnd="96dp" android:layout_marginStart="8dp" android:id="@+id/textViewFrage7"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewFrage6"/>
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/spinnerProject" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@id/textViewFrage7"
+            app:layout_constraintTop_toBottomOf="@id/spinnerWdh"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

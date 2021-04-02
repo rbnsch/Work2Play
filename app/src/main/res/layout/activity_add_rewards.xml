@@ -51,6 +51,7 @@
             android:layout_height="wrap_content" android:id="@+id/seekBarRewards"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="1.0" tools:visibility="visible"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@+id/textViewCoinsRewards" android:progress="10" android:max="98"
             app:layout_constraintTop_toBottomOf="@+id/textViewFrage2"/>
     <TextView
