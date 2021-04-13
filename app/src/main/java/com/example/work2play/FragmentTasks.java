@@ -26,6 +26,8 @@ public class FragmentTasks extends Fragment {
     static SQLiteDatabase tasksDataBase;
 
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
