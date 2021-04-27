@@ -1,14 +1,18 @@
 package com.example.work2play;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Calendar;
+
 public class AddTasks extends AppCompatActivity {
+
+    private DatePickerDialog datePickerDialog;
+    private Button dateButton;
 
     public void cancelAddTask (View view) {
         finish();
@@ -28,6 +32,77 @@ public class AddTasks extends AppCompatActivity {
         finish();
     }
 
+    private String getTodaysDate()
+    {
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+        month = month + 1;
+        return makeDateString(day, month, year);
+    }
+
+    private void initDatepicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day ) {
+                month = month +1;
+                String date = makeDateString(day, month, year);
+                dateButton.setText(date);
+
+            }
+        };
+        Calendar cal = Calendar.getInstance();
+
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+
+        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, day, month, year);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+    }
+
+    private String makeDateString(int day, int month, int year)
+    {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month)
+    {
+        if(month == 1)
+            return "JAN";
+        if(month == 2)
+            return "FEB";
+        if(month == 3)
+            return "MAR";
+        if(month == 4)
+            return "APR";
+        if(month == 5)
+            return "MAY";
+        if(month == 6)
+            return "JUN";
+        if(month == 7)
+            return "JUL";
+        if(month == 8)
+            return "AUG";
+        if(month == 9)
+            return "SEP";
+        if(month == 10)
+            return "OCT";
+        if(month == 11)
+            return "NOV";
+        if(month == 12)
+            return "DEC";
+
+        return "JAN";
+    }
+
+    public void openDatePicker(View view) {
+        datePickerDialog.show();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +111,10 @@ public class AddTasks extends AppCompatActivity {
 
         final SeekBar coinsControl = findViewById(R.id.seekBarTasks);
         final TextView coinsView = findViewById(R.id.textViewCoinsTasks);
+
+        initDatepicker();
+        dateButton = findViewById(R.id.datePickerButton);
+        dateButton.setText(getTodaysDate());
 
         coinsControl.setMax(98);
 
@@ -56,4 +135,8 @@ public class AddTasks extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 }
