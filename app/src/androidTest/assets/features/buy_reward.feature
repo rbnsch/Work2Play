@@ -1,11 +1,12 @@
 Feature: Buy Reward
 
+
   Background:
     Given I am in the Rewards Tab
     When I hold click on a Reward
     And I click on the Buy Reward button
 
-
+  @buy-rewards-feature
   Scenario: Successfully buy unique Reward
     And I have enough coins
     And the reward is set to unique

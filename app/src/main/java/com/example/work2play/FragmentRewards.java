@@ -46,6 +46,7 @@ public class FragmentRewards extends Fragment {
         int coinsIndex = c.getColumnIndex("coins");
 
 
+
         if(c.moveToFirst()){
             do{
                 rewards.add(c.getString(coinsIndex) + " - " + c.getString(taskIndex));
@@ -77,8 +78,22 @@ public class FragmentRewards extends Fragment {
                     MainActivity.setCoins(coins);
                     String deleteEntry = rewards.get(i);
                     String[] seperatedEntry = deleteEntry.split(" - ");
-                    //Cursor c = rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
+                    Cursor c = rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')", null);
+                    c.moveToFirst();
+                    String mul = "0";
+                    int multipleIndex = c.getColumnIndex("multiple");
 
+                    if(c.moveToFirst()){
+                        do{
+                            mul = c.getString(multipleIndex);
+                        }
+                        while (c.moveToNext());
+                    }
+
+                    int temp = Integer.parseInt(mul);
+                    boolean multiple = (temp == 1);
+
+                    Log.i("multiple", String.valueOf(multiple));
                 }
             }
 

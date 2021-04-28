@@ -29,8 +29,7 @@ import org.junit.internal.matchers.TypeSafeMatcher;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static junit.framework.Assert.assertNotNull;
 
 import cucumber.api.CucumberOptions;
@@ -61,14 +60,27 @@ public class MyStepdefs{
 
     }
 
+    @Before("@buy-rewards-feature")
+    public void setupBuyRewards() {
+        mainActivityActivityTestRule.launchActivity(new Intent());
+        activity = mainActivityActivityTestRule.getActivity();
+
+    }
+
     @After("@reward-feature")
     public void tearDown() {
+        mainActivityActivityTestRule.finishActivity();
+    }
+
+    @After("@buy-rewards-feature")
+    public void tearDownRewards() {
         mainActivityActivityTestRule.finishActivity();
     }
 
     @Given("^I am in the Rewards Tab")
     public void iAmInTheRewardsTab() {
         assertNotNull(activity);
+        onView(withText("Rewards")).perform(click());
     }
 
     @When("^I click the add button$")
