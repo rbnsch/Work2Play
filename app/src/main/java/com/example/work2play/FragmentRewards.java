@@ -1,17 +1,17 @@
 package com.example.work2play;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -102,6 +102,31 @@ public class FragmentRewards extends Fragment {
         rewardList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+              showPopup(position);
+
+                return true;
+            }
+        });
+        return view;
+    }
+    public void showPopup(final int position){
+        View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.reward_popup_window, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        popupWindow.showAsDropDown(popupView, 0, 0);
+
+        Button dismissButton=(Button)popupView.findViewById(R.id.dismissButton);
+        dismissButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        Button deleteButton=(Button)popupView.findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 String deleteEntry = rewards.get(position);
                 String[] seperatedEntry = deleteEntry.split(" - ");
                 Log.i("Delete", seperatedEntry[1] + " nene");
@@ -110,10 +135,10 @@ public class FragmentRewards extends Fragment {
                 rewards.remove(position);
 
                 rewardList.setAdapter(arrayAdapterRewards);
-                return true;
+                popupWindow.dismiss();
             }
         });
-        return view;
+
     }
 
     public static void addReward(String newReward, int coins, boolean multiple) {
