@@ -64,37 +64,7 @@ public class FragmentRewards extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String newCoinsString = rewards.get(i).substring(0, 2);
 
-                int newCoins = Integer.parseInt(newCoinsString);
-
-                int coins = MainActivity.getCoins();
-                if(coins < newCoins) {
-
-                    Toast.makeText(getActivity(), "Nicht genug Coins", Toast.LENGTH_LONG).show();
-
-                } else {
-                    coins -= newCoins;
-                    MainActivity.setCoins(coins);
-                    String deleteEntry = rewards.get(i);
-                    String[] seperatedEntry = deleteEntry.split(" - ");
-                    Cursor c = rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')", null);
-                    c.moveToFirst();
-                    String mul = "0";
-                    int multipleIndex = c.getColumnIndex("multiple");
-
-                    if(c.moveToFirst()){
-                        do{
-                            mul = c.getString(multipleIndex);
-                        }
-                        while (c.moveToNext());
-                    }
-
-                    int temp = Integer.parseInt(mul);
-                    boolean multiple = (temp == 1);
-
-                    Log.i("multiple", String.valueOf(multiple));
-                }
             }
 
         });
@@ -103,12 +73,12 @@ public class FragmentRewards extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
               showPopup(position);
-
-                return true;
+              return true;
             }
         });
         return view;
     }
+
     public void showPopup(final int position){
         View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.reward_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
@@ -123,21 +93,70 @@ public class FragmentRewards extends Fragment {
             }
         });
 
+        Button buyButton=(Button)popupView.findViewById(R.id.buyButton);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCoins(position);
+                popupWindow.dismiss();
+            }
+        });
+
         Button deleteButton=(Button)popupView.findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String deleteEntry = rewards.get(position);
-                String[] seperatedEntry = deleteEntry.split(" - ");
-                Log.i("Delete", seperatedEntry[1] + " nene");
-
-                rewardsDataBase.execSQL("DELETE FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
-                rewards.remove(position);
-
-                rewardList.setAdapter(arrayAdapterRewards);
+                deleteItem(position);
                 popupWindow.dismiss();
             }
         });
+
+    }
+
+    public void deleteItem(int position){
+        String deleteEntry = rewards.get(position);
+        String[] seperatedEntry = deleteEntry.split(" - ");
+        Log.i("Delete", seperatedEntry[1] + " nene");
+
+        rewardsDataBase.execSQL("DELETE FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
+        rewards.remove(position);
+
+        rewardList.setAdapter(arrayAdapterRewards);
+
+    }
+
+    public void getCoins(int position){
+        String newCoinsString = rewards.get(position).substring(0, 2);
+
+        int newCoins = Integer.parseInt(newCoinsString);
+
+        int coins = MainActivity.getCoins();
+        if(coins < newCoins) {
+
+            Toast.makeText(getActivity(), "Nicht genug Coins", Toast.LENGTH_LONG).show();
+
+        } else {
+            coins -= newCoins;
+            MainActivity.setCoins(coins);
+            String deleteEntry = rewards.get(position);
+            String[] seperatedEntry = deleteEntry.split(" - ");
+            Cursor c = rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')", null);
+            c.moveToFirst();
+            String mul = "0";
+            int multipleIndex = c.getColumnIndex("multiple");
+
+            if(c.moveToFirst()){
+                do{
+                    mul = c.getString(multipleIndex);
+                }
+                while (c.moveToNext());
+            }
+
+            int temp = Integer.parseInt(mul);
+            boolean multiple = (temp == 1);
+
+            Log.i("multiple", String.valueOf(multiple));
+        }
 
     }
 

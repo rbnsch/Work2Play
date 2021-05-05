@@ -4,12 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.WindowManager;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -60,12 +60,7 @@ public class FragmentTasks extends Fragment {
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String newCoinsString = tasks.get(position).substring(0,2);
 
-                int newCoins = Integer.parseInt(newCoinsString);
-
-                int coins = MainActivity.getCoins();
-                MainActivity.setCoins(coins + newCoins);
 
             }
         });
@@ -73,20 +68,64 @@ public class FragmentTasks extends Fragment {
         taskList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String deleteEntry = tasks.get(position);
-                String[] seperatedEntry = deleteEntry.split(" - ");
+                showPopup(position);
 
-                tasksDataBase.execSQL("DELETE FROM tasks WHERE task = ('" + seperatedEntry[1] + "')");
-                tasks.remove(position);
-
-                taskList.setAdapter(arrayAdapterTasks);
                 return true;
             }
         });
-
-
-
         return view;
+    }
+    public void showPopup(final int position){
+        View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.reward_popup_window, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        popupWindow.showAsDropDown(popupView, 0, 0);
+
+        Button dismissButton=(Button)popupView.findViewById(R.id.dismissButton);
+        dismissButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        Button buyButton=(Button)popupView.findViewById(R.id.buyButton);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishTask(position);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button deleteButton=(Button)popupView.findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteItem(position);
+                popupWindow.dismiss();
+            }
+        });
+
+    }
+
+    public void deleteItem(int position){
+        String deleteEntry = tasks.get(position);
+        String[] seperatedEntry = deleteEntry.split(" - ");
+
+        tasksDataBase.execSQL("DELETE FROM tasks WHERE task = ('" + seperatedEntry[1] + "')");
+        tasks.remove(position);
+
+        taskList.setAdapter(arrayAdapterTasks);
+    }
+
+    public void finishTask(int position){
+        String newCoinsString = tasks.get(position).substring(0,2);
+
+        int newCoins = Integer.parseInt(newCoinsString);
+
+        int coins = MainActivity.getCoins();
+        MainActivity.setCoins(coins + newCoins);
     }
 
     public static void addTask(String newTask, int coins) {
