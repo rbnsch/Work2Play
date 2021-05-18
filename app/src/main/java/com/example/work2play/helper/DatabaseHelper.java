@@ -11,6 +11,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
+    private static final String LOG = "DatabaseHelper";
+
+    private static final int DATABASE_VERSION = 1;
+
+    private static final String DATABASE_NAME = "workPlay";
+
+    private static final String TABLE_TASK = "tasks";
+    private static final String TABLE_REWARD = "rewards";
+
+    private static final String KEY_ID = "id";
+    private static final String KEY_COINS = "coins";
+    private static final String KEY_TITEL = "titel";
+    private static final String KEY_REPEATABLE = "repeatable";
+
+    private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_REPEAT_FREQUENCY = "repeatFrequency";
+    private static final String KEY_PROJECT = "project";
+    private static final String KEY_DEADLINE = "deadline";
+
+
+    private static final String CREATE_TABLE_REWARD = "CREATE TABLE "
+            + TABLE_REWARD + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITEL
+            + " TEXT," + KEY_COINS + " INTEGER," + KEY_REPEATABLE + " TEXT" + ")";
+
+    private static final String CREATE_TABLE_TASK = "CREATE TABLE "
+            + TABLE_TASK + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_TITEL + " TEXT,"
+            + KEY_DESCRIPTION + " TEXT,"
+            + KEY_COINS + " INTEGER,"
+            + KEY_REPEATABLE + " TEXT"
+            + KEY_REPEAT_FREQUENCY + " TEXT"
+
+            + ")";
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
