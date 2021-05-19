@@ -1,9 +1,15 @@
 package com.example.work2play.helper;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -32,8 +38,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE_REWARD = "CREATE TABLE "
-            + TABLE_REWARD + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITEL
-            + " TEXT," + KEY_COINS + " INTEGER," + KEY_REPEATABLE + " TEXT" + ")";
+            + TABLE_REWARD + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_TITEL + " TEXT,"
+            + KEY_COINS + " INTEGER,"
+            + KEY_REPEATABLE + " TEXT" + ")";
 
     private static final String CREATE_TABLE_TASK = "CREATE TABLE "
             + TABLE_TASK + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
@@ -62,4 +70,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
+    public long createReward(Reward reward) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITEL, reward.getTitel());
+        values.put(KEY_COINS, reward.getCoins());
+        values.put(KEY_REPEATABLE, reward.getRepeatable());
+
+        long reward_id = db.insert(TABLE_REWARD, null, values);
+
+
+        return reward_id;
+    }
+
+    public List<Reward> getAllRewards() {
+        List<Reward> rewards = new ArrayList<Reward>();
+        String selectQuery = "SELECT * FROM " + TABLE_REWARD;
+
+        Log.i(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if(c.moveToFirst()) {
+            do {
+                Reward rw = new Reward();
+                rw.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                rw.setTitel(c.getString(c.getColumnIndex(KEY_TITEL)));
+                rw.setCoins(c.getInt(c.getColumnIndex(KEY_COINS)));
+                rw.setRepeatable(c.getInt(c.getColumnIndex(KEY_REPEATABLE)));
+                rewards.add(rw);
+            } while (c.moveToNext());
+        }
+
+        return rewards;
+    }
+
 }
