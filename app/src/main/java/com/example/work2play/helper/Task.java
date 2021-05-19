@@ -3,7 +3,7 @@ package com.example.work2play.helper;
 public class Task {
 
     int id;
-    String titel;
+    String title;
     String description;
     int coins;
     int repeatable;
@@ -15,8 +15,8 @@ public class Task {
 
     }
 
-    public Task(String titel, String description, int coins, int repeatable, String repeatFrequency, int projectId, String deadlineDate) {
-        this.titel = titel;
+    public Task(String title, String description, int coins, int repeatable, String repeatFrequency, int projectId, String deadlineDate) {
+        this.title = title;
         this.description = description;
         this.coins = coins;
         this.repeatable = repeatable;
@@ -25,9 +25,9 @@ public class Task {
         this.deadlineDate =deadlineDate;
     }
 
-    public Task(int id, String titel, String description, int coins, int repeatable, String repeatFrequency, int projectId, String deadlineDate) {
+    public Task(int id, String title, String description, int coins, int repeatable, String repeatFrequency, int projectId, String deadlineDate) {
         this.id = id;
-        this.titel = titel;
+        this.title = title;
         this.description = description;
         this.coins = coins;
         this.repeatable = repeatable;
@@ -40,8 +40,8 @@ public class Task {
         this.id = id;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDescription(String description) {
@@ -72,8 +72,8 @@ public class Task {
         return id;
     }
 
-    public String getTitel() {
-        return titel;
+    public String getTitle() {
+        return title;
     }
 
     public String getDescription() {

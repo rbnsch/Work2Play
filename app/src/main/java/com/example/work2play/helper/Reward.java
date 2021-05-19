@@ -3,7 +3,7 @@ package com.example.work2play.helper;
 public class Reward {
 
     int id;
-    String titel;
+    String title;
     int coins;
     int repeatable;
 
@@ -11,15 +11,15 @@ public class Reward {
 
     }
 
-    public Reward(String titel, int coins, int repeatable) {
-        this.titel = titel;
+    public Reward(String title, int coins, int repeatable) {
+        this.title = title;
         this.coins = coins;
         this.repeatable = repeatable;
     }
 
-    public Reward(int id, String titel, int coins, int repeatable) {
+    public Reward(int id, String title, int coins, int repeatable) {
         this.id = id;
-        this.titel = titel;
+        this.title = title;
         this.coins = coins;
         this.repeatable = repeatable;
     }
@@ -28,8 +28,8 @@ public class Reward {
         this.id = id;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setCoins(int coins) {
@@ -44,8 +44,8 @@ public class Reward {
         return this.id;
     }
 
-    public String getTitel() {
-        return this.titel;
+    public String getTitle() {
+        return this.title;
     }
 
     public int getCoins() {
