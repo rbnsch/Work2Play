@@ -108,4 +108,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rewards;
     }
 
+    public void deleteReward(long reward_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_REWARD, KEY_ID + " = ?", new String[] {String.valueOf(reward_id)});
+    }
+
+    public void closeDB() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen()) {
+            db.close();
+        }
+    }
+
 }
