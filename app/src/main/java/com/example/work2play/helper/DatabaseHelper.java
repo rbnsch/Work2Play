@@ -40,19 +40,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_TITEL + " TEXT,"
             + KEY_DESCRIPTION + " TEXT,"
             + KEY_COINS + " INTEGER,"
-            + KEY_REPEATABLE + " TEXT"
-            + KEY_REPEAT_FREQUENCY + " TEXT"
-
+            + KEY_REPEATABLE + " TEXT,"
+            + KEY_REPEAT_FREQUENCY + " TEXT,"
+            + KEY_PROJECT + " INTEGER,"
+            + KEY_DEADLINE + " DATETIME"
             + ")";
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        db.execSQL(CREATE_TABLE_REWARD);
+        db.execSQL(CREATE_TABLE_TASK);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASK);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REWARD);
+
+        onCreate(db);
     }
 }
