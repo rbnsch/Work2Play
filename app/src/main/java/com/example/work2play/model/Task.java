@@ -1,4 +1,4 @@
-package com.example.work2play.helper;
+package com.example.work2play.model;
 
 public class Task {
 

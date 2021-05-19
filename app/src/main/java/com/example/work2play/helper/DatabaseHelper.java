@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import androidx.annotation.Nullable;
+import com.example.work2play.model.Reward;
 
 import java.util.ArrayList;
 import java.util.List;
