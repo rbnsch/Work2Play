@@ -4,15 +4,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.WindowManager;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class FragmentTasks extends Fragment {
     static ListView taskList;
     static ArrayAdapter<String> arrayAdapterTasks;
     static SQLiteDatabase tasksDataBase;
-
+    static Popup popup = new TaskPopup();
 
 
 
@@ -34,6 +35,7 @@ public class FragmentTasks extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
+
 
         taskList = view.findViewById(R.id.listTasks);
         tasks = new ArrayList<String>();
@@ -60,12 +62,7 @@ public class FragmentTasks extends Fragment {
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String newCoinsString = tasks.get(position).substring(0,2);
 
-                int newCoins = Integer.parseInt(newCoinsString);
-
-                int coins = MainActivity.getCoins();
-                MainActivity.setCoins(coins + newCoins);
 
             }
         });
@@ -73,21 +70,17 @@ public class FragmentTasks extends Fragment {
         taskList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String deleteEntry = tasks.get(position);
-                String[] seperatedEntry = deleteEntry.split(" - ");
 
-                tasksDataBase.execSQL("DELETE FROM tasks WHERE task = ('" + seperatedEntry[1] + "')");
-                tasks.remove(position);
+                FragmentActivity currActivity = getActivity();
+                popup.showPopup(position, currActivity);
 
-                taskList.setAdapter(arrayAdapterTasks);
+
                 return true;
             }
         });
-
-
-
         return view;
     }
+
 
     public static void addTask(String newTask, int coins) {
         tasksDataBase.execSQL("INSERT INTO tasks (task, coins) VALUES ('"+ newTask +"', '"+ coins +"')");

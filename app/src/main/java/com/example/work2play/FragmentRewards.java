@@ -1,20 +1,21 @@
 package com.example.work2play;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class FragmentRewards extends Fragment {
     static ListView rewardList;
     static ArrayAdapter<String> arrayAdapterRewards;
     static SQLiteDatabase rewardsDataBase;
+    static Popup popup = new RewardPopup();
 
     @Nullable
     @Override
@@ -64,37 +66,7 @@ public class FragmentRewards extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String newCoinsString = rewards.get(i).substring(0, 2);
 
-                int newCoins = Integer.parseInt(newCoinsString);
-
-                int coins = MainActivity.getCoins();
-                if(coins < newCoins) {
-
-                    Toast.makeText(getActivity(), "Nicht genug Coins", Toast.LENGTH_LONG).show();
-
-                } else {
-                    coins -= newCoins;
-                    MainActivity.setCoins(coins);
-                    String deleteEntry = rewards.get(i);
-                    String[] seperatedEntry = deleteEntry.split(" - ");
-                    Cursor c = rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')", null);
-                    c.moveToFirst();
-                    String mul = "0";
-                    int multipleIndex = c.getColumnIndex("multiple");
-
-                    if(c.moveToFirst()){
-                        do{
-                            mul = c.getString(multipleIndex);
-                        }
-                        while (c.moveToNext());
-                    }
-
-                    int temp = Integer.parseInt(mul);
-                    boolean multiple = (temp == 1);
-
-                    Log.i("multiple", String.valueOf(multiple));
-                }
             }
 
         });
@@ -102,19 +74,15 @@ public class FragmentRewards extends Fragment {
         rewardList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String deleteEntry = rewards.get(position);
-                String[] seperatedEntry = deleteEntry.split(" - ");
-                Log.i("Delete", seperatedEntry[1] + " nene");
 
-                rewardsDataBase.execSQL("DELETE FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
-                rewards.remove(position);
-
-                rewardList.setAdapter(arrayAdapterRewards);
-                return true;
+                FragmentActivity currActivity = getActivity();
+                popup.showPopup(position, currActivity);
+              return true;
             }
         });
         return view;
     }
+
 
     public static void addReward(String newReward, int coins, boolean multiple) {
         Log.i("Multiple:", Boolean.toString(multiple));
