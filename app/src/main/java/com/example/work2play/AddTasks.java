@@ -103,7 +103,6 @@ public class AddTasks extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
