@@ -22,21 +22,85 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:background="#F44336" android:textSize="24sp"
             android:onClick="saveAddHabits"/>
+    <TextView
+            android:text="Welches Habit möchtest du hinzufügen?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewHabitTitle"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp" android:textColor="#000000"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:ems="10"
             android:id="@+id/editTextHabit"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFrageWhich" android:textColor="#6E6E6E"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewHabitTitle" android:textColor="#6E6E6E"/>
     <TextView
-            android:text="Welches Habit möchtest du hinzufügen?"
+            android:text="Wie Oft?"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/textViewFrageWhich"
+            android:layout_height="wrap_content" android:id="@+id/textViewQuestionRep"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/editTextHabit"/>
+
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/editTextRep"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp" android:textColor="#000000"/>
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#6E6E6E" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewQuestionRep"/>
+    <TextView
+            android:text="Wie viele Coins bekommst wenn alles fertig?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewQuestionCoinsAll"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/editTextRep"/>
+    <SeekBar
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/seekBarHabitsAll"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" tools:visibility="visible"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCoinsHabitsAll" android:progress="10" android:max="98"
+            app:layout_constraintTop_toBottomOf="@+id/textViewQuestionCoinsAll"/>
+    <TextView
+            android:text="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textViewCoinsHabitsAll"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBarHabitsAll"/>
+
+    <TextView
+            android:text="Wie viele Coins bekommst wenn 1 fertig?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewQuestionCoinsOne"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"
+            android:textColor="#000000" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewCoinsHabitsAll"/>
+    <SeekBar
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/seekBarHabitsOne"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" tools:visibility="visible"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCoinsHabitsOne" android:progress="10" android:max="98"
+            app:layout_constraintTop_toBottomOf="@+id/textViewQuestionCoinsOne"/>
+    <TextView
+            android:text="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textViewCoinsHabitsOne"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBarHabitsOne"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
