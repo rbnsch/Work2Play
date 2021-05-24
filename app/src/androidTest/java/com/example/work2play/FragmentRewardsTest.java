@@ -1,9 +1,7 @@
 package com.example.work2play;
 
 import org.junit.Test;
-import org.mockito.Mockito.mock;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class FragmentRewardsTest {
     @Test
