@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HabitListAdapter extends ArrayAdapter<HabitDataHelper> {
@@ -31,11 +33,13 @@ public class HabitListAdapter extends ArrayAdapter<HabitDataHelper> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         String description = getItem(position).getDescription();
         int numberRep = getItem(position).getNumberRep();
         int numberRepDone = getItem(position).getNumberRepDone();
         int coinsOne = getItem(position).getCoinsOne();
         int coinsAll = getItem(position).getCoinsOne();
+
 
         HabitDataHelper habitDataHelper = new HabitDataHelper(description, numberRep, numberRepDone, coinsOne, coinsAll);
 
@@ -46,6 +50,7 @@ public class HabitListAdapter extends ArrayAdapter<HabitDataHelper> {
 
         TextView tvDescription = (TextView) convertView.findViewById(R.id.textViewAdapterHabitTitle);
         TextView tvRepDone = (TextView) convertView.findViewById(R.id.textViewRepDone);
+
 
         pbHabits.setMax(numberRep);
         pbHabits.setProgress(numberRepDone);
