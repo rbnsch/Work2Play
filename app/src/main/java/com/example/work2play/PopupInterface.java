@@ -196,7 +196,7 @@ class RewardPopup extends Fragment implements Popup {
 
     }
 
-    public void getCoins(int position, FragmentActivity currActivity){
+    public void     getCoins(int position, FragmentActivity currActivity){
         String newCoinsString = FragmentRewards.rewards.get(position).substring(0, 2);
 
         int newCoins = Integer.parseInt(newCoinsString);
