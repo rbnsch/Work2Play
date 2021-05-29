@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import java.util.Calendar;
 
-public class AddTasks extends AppCompatActivity {
+public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
@@ -103,7 +103,6 @@ public class AddTasks extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,13 +110,19 @@ public class AddTasks extends AppCompatActivity {
 
         final SeekBar coinsControl = findViewById(R.id.seekBarTasks);
         final TextView coinsView = findViewById(R.id.textViewCoinsTasks);
+        final Spinner spinnerWdh = findViewById(R.id.spinnerWdh);
+
+        ArrayAdapter<CharSequence> taskWdhAdapter = ArrayAdapter.createFromResource(this, R.array.task_wdh, android.R.layout.simple_spinner_item);
+        taskWdhAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerWdh.setAdapter(taskWdhAdapter);
+        spinnerWdh.setOnItemSelectedListener(this);
 
         initDatepicker();
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
 
-        coinsControl.setMax(98);
 
+        coinsControl.setMax(98);
         coinsControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -134,9 +139,18 @@ public class AddTasks extends AppCompatActivity {
 
             }
         });
+
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(),text, Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
+    }
 }
