@@ -34,10 +34,17 @@ public class AddHabits extends AppCompatActivity {
         }
 
         HabitDataHelper newHabit = new HabitDataHelper(descripionStr, numberRepInt, 0, coinsOneInt, coinsAllInt);
-        FragmentHabits.addHabit(newHabit);
+
+        addHabit(newHabit);
+
         Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
         finish();
+    }
+
+    private void addHabit(HabitDataHelper newHabit) {
+        FragmentHabits.habits.add(newHabit);
+        FragmentHabits.habitList.setAdapter(FragmentHabits.habitListAdapter);
     }
 
     @Override

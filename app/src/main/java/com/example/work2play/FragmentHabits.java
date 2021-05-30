@@ -35,8 +35,6 @@ public class FragmentHabits extends Fragment {
 
         habitList = view.findViewById(R.id.listHabits);
         habits = new ArrayList<>();
-
-
         habitListAdapter = new HabitListAdapter(getActivity(), R.layout.adapter_view_habits, habits);
 
         habitList.setAdapter(habitListAdapter);
@@ -55,18 +53,12 @@ public class FragmentHabits extends Fragment {
 
                 FragmentActivity currActivity = getActivity();
                 popup.showPopup(position, currActivity);
-
-
                 return true;
             }
         });
 
-
         return view;
     }
 
-    public static void addHabit(HabitDataHelper newHabit){
-        habits.add(newHabit);
-        habitList.setAdapter(habitListAdapter);
-    }
+
 }
