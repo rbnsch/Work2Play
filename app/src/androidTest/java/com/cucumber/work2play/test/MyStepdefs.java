@@ -148,6 +148,6 @@ public class MyStepdefs{
     @And("^toast: \"([^\"]*)\" is shown$")
     public void toastIsShown(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        //throw new PendingException();
     }
 }
