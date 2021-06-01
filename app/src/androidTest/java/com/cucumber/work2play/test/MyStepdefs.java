@@ -184,4 +184,33 @@ public class MyStepdefs{
                 .inAdapterView(withId(R.id.listTasks)).atPosition(0)
                 .perform(longClick());
     }
+
+    @And("^I click on the Finish Task Button$")
+    public void iClickOnTheFinishTaskButton() {
+        onView(withText("FINISH")).inRoot(isPopupWindow()).perform(click());
+    }
+
+    @And("^Task is not repeatable$")
+    public void taskIsNotRepeatable() {
+        
+    }
+
+    @Then("^Coins are added$")
+    public void coinsAreAdded() {
+        
+    }
+
+    @And("^I go back to the Task Tab$")
+    public void iGoBackToTheTaskTab() {
+        
+    }
+
+    @And("^Task is repeatable$")
+    public void taskIsRepeatable() {
+        
+    }
+
+    @And("^Task is removed$")
+    public void taskIsRemoved() {
+    }
 }
