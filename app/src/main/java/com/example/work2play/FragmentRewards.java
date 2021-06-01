@@ -33,6 +33,7 @@ public class FragmentRewards extends Fragment {
     static ArrayAdapter<String> arrayAdapterRewards;
     static SQLiteDatabase rewardsDataBase;
     static RewardPopup popup = new RewardPopup();
+    static List<Reward> allRewards;
 
 
     @Nullable
@@ -44,15 +45,22 @@ public class FragmentRewards extends Fragment {
         rewardList = view.findViewById(R.id.listRewards);
         rewards = new ArrayList<String>();
 
-
         db = new DatabaseHelper(getActivity().getApplicationContext());
-        List<Reward> allRewards = db.getAllRewards();
+
+
+
+
+        allRewards = db.getAllRewards();
         for (Reward reward : allRewards) {
             rewards.add(reward.getCoins() + " - " + reward.getTitle());
+            Log.i("Index", Long.toString(reward.getId()));
         }
 
         arrayAdapterRewards = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, rewards);
         rewardList.setAdapter(arrayAdapterRewards);
+
+
+
 
 
 
@@ -71,7 +79,7 @@ public class FragmentRewards extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 FragmentActivity currActivity = getActivity();
-                popup.showPopup(position, currActivity);
+                popup.showPopup(position, currActivity, db);
               return true;
             }
         });

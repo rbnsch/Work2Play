@@ -10,10 +10,15 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import com.example.work2play.helper.DatabaseHelper;
+
 
 
 class RewardPopup extends Fragment {
-    public void showPopup(final int position, FragmentActivity currActivity){
+    DatabaseHelper db;
+
+    public void showPopup(final int position, FragmentActivity currActivity, DatabaseHelper db){
+        this.db = db;
         View popupView = LayoutInflater.from(currActivity).inflate(R.layout.reward_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
@@ -48,11 +53,17 @@ class RewardPopup extends Fragment {
     }
 
     public void deleteItem(int position){
+        db.deleteReward(FragmentRewards.allRewards.get(position).getId());
+        /*
         String deleteEntry = FragmentRewards.rewards.get(position);
+
+
         String[] seperatedEntry = deleteEntry.split(" - ");
         Log.i("Delete", seperatedEntry[1] + " nene");
 
         FragmentRewards.rewardsDataBase.execSQL("DELETE FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
+
+         */
         FragmentRewards.rewards.remove(position);
 
         FragmentRewards.rewardList.setAdapter(FragmentRewards.arrayAdapterRewards);
