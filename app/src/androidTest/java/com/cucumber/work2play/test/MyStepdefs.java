@@ -82,7 +82,7 @@ public class MyStepdefs{
 
     @When("^I hold click on a Reward$")
     public void iHoldClickOnAReward() {
-        onData(hasToString(startsWith("30 - Eis essen")))
+        onData(hasToString(startsWith("")))
                 .inAdapterView(withId(R.id.listRewards)).atPosition(0)
                 .perform(longClick());
     }
@@ -149,5 +149,39 @@ public class MyStepdefs{
     public void toastIsShown(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
+    }
+
+
+
+
+
+
+
+
+    @Before("@finish-task-feature")
+    public void setupFinishTasks() {
+
+    }
+
+    @After("@finish-task-feature")
+    public void tearDownTasks() {
+        mainActivityActivityTestRule.finishActivity();
+    }
+
+
+
+    @Given("^I am in the Tasks Tab$")
+    public void iAmInTheTasksTab() {
+        mainActivityActivityTestRule.launchActivity(new Intent());
+        activity = mainActivityActivityTestRule.getActivity();
+        assertNotNull(activity);
+        onView(withText("Tasks")).perform(click());
+    }
+
+    @When("^I hold click on a Task$")
+    public void iHoldClickOnATask() {
+        onData(hasToString(startsWith("")))
+                .inAdapterView(withId(R.id.listTasks)).atPosition(0)
+                .perform(longClick());
     }
 }

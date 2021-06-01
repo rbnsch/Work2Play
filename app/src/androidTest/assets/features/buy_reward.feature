@@ -23,7 +23,7 @@ Feature: Buy Reward
     Then the required coins are subtracted
     And I go back to the Rewards Tab
 
-
+  @buy-rewards-feature
   Scenario: Unsuccessfully buy Reward
     And I don't have enough coins
     And I click on the Buy Reward button
