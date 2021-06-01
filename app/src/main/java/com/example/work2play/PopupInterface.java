@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 
+
 interface Popup{
 
     public void showPopup(final int position, FragmentActivity currActivity);
@@ -77,8 +78,79 @@ class TaskPopup extends Fragment implements Popup{
     }
 }
 
+class HabitPopup extends Fragment implements Popup{
+
+    public void showPopup(final int position, final FragmentActivity currActivity) {
+
+        View popupView = LayoutInflater.from(currActivity).inflate(R.layout.habit_popup_window, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        popupWindow.showAsDropDown(popupView, 0, 0);
+
+        Button dismissButton = (Button) popupView.findViewById(R.id.dismissButton);
+        dismissButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        Button finishButton = (Button) popupView.findViewById(R.id.finishButton);
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishHabit(position, currActivity);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button deleteButton = (Button) popupView.findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteItem(position);
+                popupWindow.dismiss();
+            }
+        });
+
+
+
+    }
+
+    public void deleteItem(int position){
+
+        FragmentHabits.habits.set(position, null);
+        FragmentHabits.habits.remove(position);
+
+        FragmentHabits.habitList.setAdapter(FragmentHabits.habitListAdapter);
+
+    }
+
+    public void finishHabit(int position, FragmentActivity currActivity){
+        HabitDataHelper currHabit = FragmentHabits.habits.get(position);
+        int newCoins = 0;
+
+        if (currHabit.getNumberRepDone() < (currHabit.getNumberRep() - 1)){
+            newCoins = currHabit.getCoinsOne();
+            currHabit.setNumberRepDone(currHabit.getNumberRepDone() + 1);
+        }
+        else if(currHabit.getNumberRepDone() == (currHabit.getNumberRep() - 1) ){
+            newCoins = currHabit.getCoinsOne() + currHabit.getCoinsAll();
+            currHabit.setNumberRepDone(currHabit.getNumberRepDone() + 1);
+        }
+        else {
+            Toast.makeText(currActivity, "Already Finished", Toast.LENGTH_LONG).show();
+        }
+
+        FragmentHabits.habitListAdapter.notifyDataSetChanged();
+
+        int coins = MainActivity.getCoins();
+        MainActivity.setCoins(coins + newCoins);
+    }
+}
+
 class RewardPopup extends Fragment implements Popup {
-    public void showPopup(final int position, FragmentActivity currActivity){
+    public void showPopup(final int position, final FragmentActivity currActivity){
         View popupView = LayoutInflater.from(currActivity).inflate(R.layout.reward_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
@@ -96,7 +168,7 @@ class RewardPopup extends Fragment implements Popup {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCoins(position);
+                getCoins(position, currActivity);
                 popupWindow.dismiss();
             }
         });
@@ -124,7 +196,7 @@ class RewardPopup extends Fragment implements Popup {
 
     }
 
-    public void getCoins(int position){
+    public void getCoins(int position, FragmentActivity currActivity){
         String newCoinsString = FragmentRewards.rewards.get(position).substring(0, 2);
 
         int newCoins = Integer.parseInt(newCoinsString);
@@ -132,7 +204,7 @@ class RewardPopup extends Fragment implements Popup {
         int coins = MainActivity.getCoins();
         if(coins < newCoins) {
 
-            Toast.makeText(getActivity(), "Nicht genug Coins", Toast.LENGTH_LONG).show();
+            Toast.makeText(currActivity, "Nicht genug Coins", Toast.LENGTH_LONG).show();
 
         } else {
             coins -= newCoins;

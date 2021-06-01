@@ -23,7 +23,13 @@
             app:layout_constraintEnd_toEndOf="parent" android:background="#F44336" android:textSize="24sp"
             android:onClick="saveAddTask"/>
 
-
+    <TextView
+            android:text="Welche Aufgabe hast du zu erledigen?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textViewFrage1"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp" android:textColor="#000000"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,23 +39,6 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/textViewFrage1" android:textColor="#6E6E6E"/>
-    <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:ems="10"
-            android:id="@+id/editTextAufgabeBeschreibung"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="#6E6E6E" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFrage2"/>
-    <TextView
-            android:text="Welche Aufgabe hast du zu erledigen?"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/textViewFrage1"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp" android:textColor="#000000"/>
     <TextView
             android:text="Beschreibung:"
             android:layout_width="0dp"
@@ -58,6 +47,18 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"
             android:textColor="#000000" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/editTextAufgabe"/>
+
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/editTextAufgabeBeschreibung"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#6E6E6E" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFrage2"/>
+
     <TextView
             android:text="Wie viele Coins bekommst du beim Erledigen?"
             android:layout_width="0dp"
@@ -107,14 +108,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/datePickerButton"/>
-    <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"  android:id="@+id/switchMultipleTask" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@id/textViewFrage5"
-            app:layout_constraintTop_toBottomOf="@id/datePickerButton"/>
+
     <TextView
-            android:text="Wiederholfreuenz?"
+            android:text="Wiederholung"
             android:layout_width="0dp" android:textSize="18sp"
             android:textColor="#000000" android:layout_marginTop="16dp"
             android:layout_marginEnd="96dp" android:layout_marginStart="8dp" android:id="@+id/textViewFrage6"
@@ -127,7 +123,7 @@
             android:layout_height="wrap_content" android:id="@+id/spinnerWdh" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@id/textViewFrage6"
-            app:layout_constraintTop_toBottomOf="@id/switchMultipleTask"/>
+            app:layout_constraintTop_toBottomOf="@id/textViewFrage5"/>
     <TextView
             android:text="Projekt"
             android:layout_width="0dp" android:textSize="18sp"

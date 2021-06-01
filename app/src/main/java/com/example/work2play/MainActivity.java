@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
                // Log.i("Delete", shownTab + " nene");
                 switch (viewPager.getCurrentItem()) {
                     case 0:
-                        Snackbar.make(view, "Replace with youuuuur own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Intent addHabit = new Intent(getApplicationContext(), AddHabits.class);
+                        startActivity(addHabit);
                         break;
                     case 1:
                         Intent addTask = new Intent(getApplicationContext(), AddTasks.class);
