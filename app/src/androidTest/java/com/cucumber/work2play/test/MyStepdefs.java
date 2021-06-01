@@ -37,6 +37,7 @@ import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static com.example.work2play.MainActivity.setCoins;
 import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.Matchers.*;
 
@@ -61,19 +62,10 @@ public class MyStepdefs{
 
     private Activity activity;
 
-    @Before("@reward-feature")
-    public void setup() {
-        mainActivityActivityTestRule.launchActivity(new Intent());
-        activity = mainActivityActivityTestRule.getActivity();
-
-    }
-
     @Before("@buy-rewards-feature")
     public void setupBuyRewards() {
 
-
     }
-
 
     @After("@buy-rewards-feature")
     public void tearDownRewards() {
@@ -105,41 +97,22 @@ public class MyStepdefs{
     }
 
 
-    @After("@reward-feature")
-    public void tearDown() {
-        mainActivityActivityTestRule.finishActivity();
-    }
 
 
 
-
+/*
     @When("^I click the add button$")
     public void click_add() {
         onView(withId(R.id.fab)).perform(click());
         // mFab.perform(click());
     }
+*/
 
-
-    @And("^I enter a Reward Name$")
-    public void iEnterARewardName() {
-        i++;
-        
-    }
-
-    @And("^I set the wanted coins$")
-    public void iSetTheWantedCoins() {
-        i++;
-    }
-
-    @Then("^I get added this reward$")
-    public void iGetAddedThisReward() {
-        i++;
-    }
 
 
     @And("^I have enough coins$")
     public void iHaveEnoughCoins() {
-        
+        setCoins(200);
     }
 
     @And("^the reward is set to unique$")
@@ -169,7 +142,7 @@ public class MyStepdefs{
 
     @And("^I don't have enough coins$")
     public void iDonTHaveEnoughCoins() {
-        
+        setCoins(1);
     }
 
     @And("^toast: \"([^\"]*)\" is shown$")
