@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import com.example.work2play.helper.DatabaseHelper;
+import com.example.work2play.model.Reward;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -12,6 +15,9 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import com.example.work2play.ui.main.SectionsPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         coins = savedCoins.getInt("coins", 0);
         coinsText.setText(String.valueOf(coins) + " Coins");
+
+
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

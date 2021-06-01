@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+
 import java.util.ArrayList;
 
 public class FragmentTasks extends Fragment {
@@ -25,7 +26,7 @@ public class FragmentTasks extends Fragment {
     static ListView taskList;
     static ArrayAdapter<String> arrayAdapterTasks;
     static SQLiteDatabase tasksDataBase;
-    static Popup popup = new TaskPopup();
+    static TaskPopup popup = new TaskPopup();
 
 
 

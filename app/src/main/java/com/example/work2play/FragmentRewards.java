@@ -16,44 +16,39 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import com.example.work2play.helper.DatabaseHelper;
+
+import com.example.work2play.model.Reward;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentRewards extends Fragment {
 
+    private static DatabaseHelper db;
     View view;
 
     static ArrayList<String> rewards;
     static ListView rewardList;
     static ArrayAdapter<String> arrayAdapterRewards;
     static SQLiteDatabase rewardsDataBase;
-    static Popup popup = new RewardPopup();
+    static RewardPopup popup = new RewardPopup();
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 
         view = inflater.inflate(R.layout.fragment_rewards, container, false);
 
         rewardList = view.findViewById(R.id.listRewards);
         rewards = new ArrayList<String>();
 
-        rewardsDataBase = getActivity().openOrCreateDatabase("rewards", Context.MODE_PRIVATE, null);
-        rewardsDataBase.execSQL("CREATE TABLE IF NOT EXISTS rewards (reward VARCHAR, coins INT(2), multiple INT(1))");
 
-        Cursor c = rewardsDataBase.rawQuery("SELECT * FROM rewards", null);
-
-        int taskIndex = c.getColumnIndex("reward");
-        int coinsIndex = c.getColumnIndex("coins");
-
-
-
-        if(c.moveToFirst()){
-            do{
-                rewards.add(c.getString(coinsIndex) + " - " + c.getString(taskIndex));
-            }
-            while (c.moveToNext());
+        db = new DatabaseHelper(getActivity().getApplicationContext());
+        List<Reward> allRewards = db.getAllRewards();
+        for (Reward reward : allRewards) {
+            rewards.add(reward.getCoins() + " - " + reward.getTitle());
         }
 
         arrayAdapterRewards = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, rewards);
@@ -87,9 +82,17 @@ public class FragmentRewards extends Fragment {
     public static void addReward(String newReward, int coins, boolean multiple) {
         Log.i("Multiple:", Boolean.toString(multiple));
         int mu = (multiple) ? 1 : 0;
-        rewardsDataBase.execSQL("INSERT INTO rewards (reward, coins, multiple) VALUES ('"+ newReward +"', '"+ coins + "', '" + mu +"')");
         rewards.add(Integer.toString(coins) + " - " + newReward);
         rewardList.setAdapter(arrayAdapterRewards);
+        Reward reward = new Reward();
+        reward.setTitle(newReward);
+        reward.setCoins(coins);
+        reward.setRepeatable(mu);
+        db.createReward(reward);
+
     }
+
+
+
 
 }

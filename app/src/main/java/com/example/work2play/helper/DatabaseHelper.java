@@ -14,8 +14,8 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public DatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DatabaseHelper(@Nullable Context context) {
+        super(context, "name", null, 1);
     }
 
     private static final String LOG = "DatabaseHelper";
