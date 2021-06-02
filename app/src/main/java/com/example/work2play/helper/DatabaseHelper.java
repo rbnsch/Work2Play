@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.example.work2play.model.Habit;
 import com.example.work2play.model.Project;
 import com.example.work2play.model.Reward;
+import com.example.work2play.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +151,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+
+
+
+
+
         /*
     -------------------------------------
 
@@ -157,6 +163,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     -------------------------------------
      */
+
+    public long createTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, task.getTitle());
+        values.put(KEY_DESCRIPTION, task.getDescription());
+        values.put(KEY_COINS, task.getCoins());
+        values.put(KEY_REPEATABLE, task.getRepeatable());
+        values.put(KEY_REPEAT_FREQUENCY, task.getRepeatFrequency());
+        values.put(KEY_PROJECT, task.getProjectId());
+        values.put(KEY_DEADLINE, task.getDeadlineDate());
+
+
+        return db.insert(TABLE_TASK, null, values);
+    }
+
+    public List<Task> getAllTasks() {
+        List<Task> tasks = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_TASK;
+
+        Log.i(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if(c.moveToFirst()) {
+            do {
+                Task ts = new Task();
+                ts.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                ts.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                ts.setDescription(c.getString(c.getColumnIndex(KEY_DESCRIPTION)));
+                ts.setCoins(c.getInt(c.getColumnIndex(KEY_COINS)));
+                ts.setRepeatable(c.getInt(c.getColumnIndex(KEY_REPEATABLE)));
+                ts.setRepeatFrequency(c.getString(c.getColumnIndex(KEY_REPEAT_FREQUENCY)));
+                ts.setProjectId(c.getInt(c.getColumnIndex(KEY_PROJECT)));
+                ts.setDeadlineDate(c.getString(c.getColumnIndex(KEY_DEADLINE)));
+                tasks.add(ts);
+            } while (c.moveToNext());
+        }
+
+        return tasks;
+    }
+
+    public void deleteTask(long task_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASK, KEY_ID + " = ?", new String[] {String.valueOf(task_id)});
+    }
+
 
 
 
@@ -208,6 +263,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PROJECT, KEY_ID + " = ?", new String[] {String.valueOf(project_id)});
     }
+
+
+
+
+
+
+
 
 
         /*
