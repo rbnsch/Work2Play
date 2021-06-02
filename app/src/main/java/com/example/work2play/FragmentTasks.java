@@ -14,12 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import com.example.work2play.helper.DatabaseHelper;
+import com.example.work2play.model.Reward;
+import com.example.work2play.model.Task;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentTasks extends Fragment {
 
+    private static DatabaseHelper db;
     View view;
 
     static ArrayList<String> tasks;
@@ -27,6 +32,7 @@ public class FragmentTasks extends Fragment {
     static ArrayAdapter<String> arrayAdapterTasks;
     static SQLiteDatabase tasksDataBase;
     static TaskPopup popup = new TaskPopup();
+    static List<Task> allTasks;
 
 
 
@@ -41,18 +47,13 @@ public class FragmentTasks extends Fragment {
         taskList = view.findViewById(R.id.listTasks);
         tasks = new ArrayList<String>();
 
-        tasksDataBase = getActivity().openOrCreateDatabase("tasks", Context.MODE_PRIVATE, null);
-        tasksDataBase.execSQL("CREATE TABLE IF NOT EXISTS tasks (task VARCHAR, coins INT(2))");
+        db = new DatabaseHelper(getActivity().getApplicationContext());
 
-        Cursor c = tasksDataBase.rawQuery("SELECT * FROM tasks", null);
 
-        int taskIndex = c.getColumnIndex("task");
-        int coinsIndex = c.getColumnIndex("coins");
-
-        if(c.moveToFirst()){
-            do{
-                tasks.add(c.getString(coinsIndex) + " - " + c.getString(taskIndex));
-            } while (c.moveToNext());
+        allTasks = db.getAllTasks();
+        for (Task task : allTasks) {
+            tasks.add(task.getCoins() + " - " + task.getTitle());
+            Log.i("Index", Long.toString(task.getId()));
         }
 
         arrayAdapterTasks = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, tasks);
@@ -84,10 +85,26 @@ public class FragmentTasks extends Fragment {
 
 
     public static void addTask(String newTask, int coins) {
-        tasksDataBase.execSQL("INSERT INTO tasks (task, coins) VALUES ('"+ newTask +"', '"+ coins +"')");
-        tasks.add(Integer.toString(coins) + " - " + newTask);
-        taskList.setAdapter(arrayAdapterTasks);
+        Task task = new Task();
+        task.setTitle(newTask);
+        task.setCoins(coins);
+        db.createTask(task);
+        reloadTaskListView();
 
     }
+
+
+    public static void reloadTaskListView () {
+        allTasks = db.getAllTasks();
+        tasks.clear();
+        for (Task task : allTasks) {
+            tasks.add(task.getCoins() + " - " + task.getTitle());
+            Log.i("Index", Long.toString(task.getId()));
+        }
+
+        taskList.setAdapter(arrayAdapterTasks);
+    }
+
+
 
 }
