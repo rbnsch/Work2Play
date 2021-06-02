@@ -54,19 +54,9 @@ class RewardPopup extends Fragment {
 
     public void deleteItem(int position){
         db.deleteReward(FragmentRewards.allRewards.get(position).getId());
-        /*
-        String deleteEntry = FragmentRewards.rewards.get(position);
 
+        FragmentRewards.reloadRewardListView();
 
-        String[] seperatedEntry = deleteEntry.split(" - ");
-        Log.i("Delete", seperatedEntry[1] + " nene");
-
-        FragmentRewards.rewardsDataBase.execSQL("DELETE FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
-
-         */
-        FragmentRewards.rewards.remove(position);
-
-        FragmentRewards.rewardList.setAdapter(FragmentRewards.arrayAdapterRewards);
 
     }
 
@@ -83,24 +73,11 @@ class RewardPopup extends Fragment {
         } else {
             coins -= newCoins;
             MainActivity.setCoins(coins);
-            String deleteEntry = FragmentRewards.rewards.get(position);
-            String[] seperatedEntry = deleteEntry.split(" - ");
-            Cursor c = FragmentRewards.rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')", null);
-            c.moveToFirst();
-            String mul = "0";
-            int multipleIndex = c.getColumnIndex("multiple");
 
-            if(c.moveToFirst()){
-                do{
-                    mul = c.getString(multipleIndex);
-                }
-                while (c.moveToNext());
+            if (FragmentRewards.allRewards.get(position).getRepeatable() != 1) {
+                deleteItem(position);
             }
 
-            int temp = Integer.parseInt(mul);
-            boolean multiple = (temp == 1);
-
-            Log.i("multiple", String.valueOf(multiple));
         }
 
     }

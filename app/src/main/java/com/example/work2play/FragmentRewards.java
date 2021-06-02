@@ -49,7 +49,6 @@ public class FragmentRewards extends Fragment {
 
 
 
-
         allRewards = db.getAllRewards();
         for (Reward reward : allRewards) {
             rewards.add(reward.getCoins() + " - " + reward.getTitle());
@@ -58,11 +57,6 @@ public class FragmentRewards extends Fragment {
 
         arrayAdapterRewards = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, rewards);
         rewardList.setAdapter(arrayAdapterRewards);
-
-
-
-
-
 
 
         rewardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,14 +84,24 @@ public class FragmentRewards extends Fragment {
     public static void addReward(String newReward, int coins, boolean multiple) {
         Log.i("Multiple:", Boolean.toString(multiple));
         int mu = (multiple) ? 1 : 0;
-        rewards.add(Integer.toString(coins) + " - " + newReward);
-        rewardList.setAdapter(arrayAdapterRewards);
         Reward reward = new Reward();
         reward.setTitle(newReward);
         reward.setCoins(coins);
         reward.setRepeatable(mu);
         db.createReward(reward);
+        reloadRewardListView();
 
+    }
+
+    public static void reloadRewardListView () {
+        allRewards = db.getAllRewards();
+        rewards.clear();
+        for (Reward reward : allRewards) {
+            rewards.add(reward.getCoins() + " - " + reward.getTitle());
+            Log.i("Index", Long.toString(reward.getId()));
+        }
+
+        rewardList.setAdapter(arrayAdapterRewards);
     }
 
 
