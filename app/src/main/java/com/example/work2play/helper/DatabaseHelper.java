@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import androidx.annotation.Nullable;
+import com.example.work2play.model.Project;
 import com.example.work2play.model.Reward;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_TASK = "tasks";
     private static final String TABLE_REWARD = "rewards";
+    private static final String TABLE_PROJECT = "project";
 
     private static final String KEY_ID = "id";
     private static final String KEY_COINS = "coins";
@@ -56,11 +58,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + ")";
 
 
+    private static final String CREATE_TABLE_PROJECT = "CREATE TABLE "
+            + TABLE_REWARD + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_TITLE + " TEXT"
+            + ")";
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE_REWARD);
         db.execSQL(CREATE_TABLE_TASK);
+        db.execSQL(CREATE_TABLE_PROJECT);
     }
 
     @Override
@@ -68,9 +77,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASK);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REWARD);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECT);
 
         onCreate(db);
     }
+
+
+    /*
+    -------------------------------------
+
+    REWARD TABLE
+
+    -------------------------------------
+     */
 
     public long createReward(Reward reward) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -111,6 +130,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_REWARD, KEY_ID + " = ?", new String[] {String.valueOf(reward_id)});
     }
+
+
+        /*
+    -------------------------------------
+
+    TASK TABLE
+
+    -------------------------------------
+     */
+
+
+
+
+
+
+
+        /*
+    -------------------------------------
+
+    PROJECT TABLE
+
+    -------------------------------------
+     */
+
+    public long createProject(Project project) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, project.getTitle());
+
+
+        return db.insert(TABLE_REWARD, null, values);
+    }
+
+
+    public List<Project> getAllProjects() {
+        List<Project> projects = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_PROJECT;
+
+        Log.i(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Project pr = new Project();
+                pr.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                pr.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                projects.add(pr);
+            } while (c.moveToNext());
+        }
+
+        return projects;
+    }
+
+    public void deleteProject(long project_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PROJECT, KEY_ID + " = ?", new String[] {String.valueOf(project_id)});
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();
