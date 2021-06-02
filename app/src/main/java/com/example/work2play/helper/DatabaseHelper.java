@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import androidx.annotation.Nullable;
+import com.example.work2play.model.Habit;
 import com.example.work2play.model.Project;
 import com.example.work2play.model.Reward;
 
@@ -27,7 +28,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_TASK = "tasks";
     private static final String TABLE_REWARD = "rewards";
-    private static final String TABLE_PROJECT = "project";
+    private static final String TABLE_PROJECT = "projects";
+    private static final String TABLE_HABIT = "habits";
 
     private static final String KEY_ID = "id";
     private static final String KEY_COINS = "coins";
@@ -38,6 +40,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_REPEAT_FREQUENCY = "repeatFrequency";
     private static final String KEY_PROJECT = "project";
     private static final String KEY_DEADLINE = "deadline";
+
+    private static final String KEY_COINS_ONE = "coinsOne";
+    private static final String KEY_COINS_ALL = "coinsAll";
+    private static final String KEY_NUMBER_REP = "numberRep";
+    private static final String KEY_NUMBER_REP_DONE = "numberRepDone";
 
 
     private static final String CREATE_TABLE_REWARD = "CREATE TABLE "
@@ -63,6 +70,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_TITLE + " TEXT"
             + ")";
 
+    private static final String CREATE_TABLE_HABIT = "CREATE TABLE "
+            + TABLE_HABIT + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_TITLE + " TEXT,"
+            + KEY_COINS_ONE + " INTEGER,"
+            + KEY_COINS_ALL + " INTEGER,"
+            + KEY_NUMBER_REP + " INTEGER,"
+            + KEY_NUMBER_REP_DONE + " INTEGER"
+            + ")";
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -70,6 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_REWARD);
         db.execSQL(CREATE_TABLE_TASK);
         db.execSQL(CREATE_TABLE_PROJECT);
+        db.execSQL(CREATE_TABLE_HABIT);
     }
 
     @Override
@@ -78,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASK);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REWARD);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HABIT);
 
         onCreate(db);
     }
@@ -189,6 +207,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteProject(long project_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PROJECT, KEY_ID + " = ?", new String[] {String.valueOf(project_id)});
+    }
+
+
+        /*
+    -------------------------------------
+
+    HABIT TABLE
+
+    -------------------------------------
+     */
+
+
+    public long createHabit(Habit habit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, habit.getTitle());
+        values.put(KEY_COINS_ONE, habit.getCoinsOne());
+        values.put(KEY_COINS_ALL, habit.getCoinsAll());
+        values.put(KEY_NUMBER_REP, habit.getNumberRep());
+        values.put(KEY_NUMBER_REP_DONE, habit.getNumberRepDone());
+
+
+        return db.insert(TABLE_HABIT, null, values);
+    }
+
+    public List<Habit> getAllHabits() {
+        List<Habit> habits = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_HABIT;
+
+        Log.i(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Habit hb = new Habit();
+                hb.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                hb.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                hb.setCoinsOne(c.getInt(c.getColumnIndex(KEY_COINS_ONE)));
+                hb.setCoinsAll(c.getInt(c.getColumnIndex(KEY_COINS_ALL)));
+                hb.setNumberRep(c.getInt(c.getColumnIndex(KEY_NUMBER_REP)));
+                hb.setNumberRepDone(c.getInt(c.getColumnIndex(KEY_NUMBER_REP_DONE)));
+                habits.add(hb);
+            } while (c.moveToNext());
+        }
+
+        return habits;
+    }
+
+    public void deleteHabit(long habit_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_HABIT, KEY_ID + " = ?", new String[] {String.valueOf(habit_id)});
     }
 
 

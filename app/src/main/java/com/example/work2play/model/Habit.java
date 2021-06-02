@@ -1,6 +1,6 @@
 package com.example.work2play.model;
 
-class Habit {
+public class Habit {
 
     int id;
     String title;
