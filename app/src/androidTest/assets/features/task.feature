@@ -11,7 +11,7 @@ Feature:Task(CRUD)
     And I select repeatable or not <repeatable>
     And I select project <project>
     And I click the  "SAVE" button
-    Then new task is sored
+    Then new task is saved
     And I am moved back to Tasks tab
     And new Task is shown
     Examples:
@@ -21,7 +21,7 @@ Feature:Task(CRUD)
       | bring car to garage | 15    | 05.08.21  | no         | car     |
 
   Scenario Outline: Delete Task
-    Given at least one Task is already created
+    And at least one Task is already created
     When I hold click on a task <task>
     And I presses the "DELETE" button
     Then Task is deleted
@@ -33,7 +33,7 @@ Feature:Task(CRUD)
       | bring car to garage |
 
   Scenario Outline: Finishing non repeatable Task
-    Given at least one Task is already created
+    And at least one Task is already created
     And Task is non repeatable <repeatable>
     When I hold click on a task <task>
     And I press the "FINISH" button
@@ -48,7 +48,7 @@ Feature:Task(CRUD)
 
 
   Scenario Outline: Finishing repeatable Task
-    Given at least one Task is already created
+    And at least one Task is already created
     And Task is repeatable <repeatable>
     When I hold click on a task <task>
     And I press the "FINISH" button
