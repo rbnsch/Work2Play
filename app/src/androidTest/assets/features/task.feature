@@ -1,10 +1,10 @@
 Feature:Task(CRUD)
   Background:
     Given User is in the Tasks tab
-    When User clicks on the "+" button
 
   Scenario: Create Task
-    Then AddTask screen is shown
+    When User clicks on the "+" button
+    And AddTask screen is shown
     And user sets name
     And user sets rewards
     And user sets date
