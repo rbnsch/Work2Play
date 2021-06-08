@@ -74,7 +74,7 @@ public class FragmentTasks extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 FragmentActivity currActivity = getActivity();
-                popup.showPopup(position, currActivity);
+                popup.showPopup(position, currActivity, db);
 
 
                 return true;

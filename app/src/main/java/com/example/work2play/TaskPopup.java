@@ -10,13 +10,14 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
+import com.example.work2play.helper.DatabaseHelper;
 
 
 class TaskPopup extends Fragment{
+    DatabaseHelper db;
 
-    public void showPopup(final int position, FragmentActivity currActivity) {
-
+    public void showPopup(final int position, FragmentActivity currActivity, DatabaseHelper db) {
+        this.db = db;
         View popupView = LayoutInflater.from(currActivity).inflate(R.layout.task_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
@@ -52,13 +53,10 @@ class TaskPopup extends Fragment{
     }
 
     public void deleteItem(int position){
-        String deleteEntry = FragmentTasks.tasks.get(position);
-        String[] seperatedEntry = deleteEntry.split(" - ");
+        db.deleteTask(FragmentTasks.allTasks.get(position).getId());
 
-        FragmentTasks.tasksDataBase.execSQL("DELETE FROM tasks WHERE task = ('" + seperatedEntry[1] + "')");
-        FragmentTasks.tasks.remove(position);
+        FragmentTasks.reloadTaskListView();
 
-        FragmentTasks.taskList.setAdapter(FragmentTasks.arrayAdapterTasks);
     }
 
     public void finishTask(int position){
