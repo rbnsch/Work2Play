@@ -28,7 +28,8 @@ import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static com.example.work2play.MainActivity.setCoins;
 import static junit.framework.Assert.assertNotNull;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasToString;
+import static org.hamcrest.Matchers.startsWith;
 
 
 import cucumber.api.java.After;

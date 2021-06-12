@@ -14,11 +14,11 @@ import java.util.ArrayList;
 
 public class HabitListAdapter extends ArrayAdapter<HabitDataHelper> {
 
-    private static final String TAG = "HabitListAdapter";
+    //private static final String TAG = "HabitListAdapter";
 
 
     private Context mContext;
-    int mResource;
+    private int mResource;
 
     public HabitListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<HabitDataHelper> objects) {
         super(context, resource, objects);

@@ -22,13 +22,12 @@ import java.util.List;
 public class FragmentTasks extends Fragment {
 
     private static DatabaseHelper db;
-    View view;
+    private View view;
 
     static ArrayList<String> tasks;
-    static ListView taskList;
-    static ArrayAdapter<String> arrayAdapterTasks;
-    static SQLiteDatabase tasksDataBase;
-    static TaskPopup popup = new TaskPopup();
+    private static ListView taskList;
+    private static ArrayAdapter<String> arrayAdapterTasks;
+    private static TaskPopup popup = new TaskPopup();
     static List<Task> allTasks;
 
 

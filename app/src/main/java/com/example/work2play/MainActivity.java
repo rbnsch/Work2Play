@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +14,10 @@ import com.example.work2play.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    static int coins = 0;
+    private static int coins = 0;
 
-    static SharedPreferences savedCoins;
-    static TextView coinsText;
+    private static SharedPreferences savedCoins;
+    private static TextView coinsText;
 
 
     public static int getCoins() {

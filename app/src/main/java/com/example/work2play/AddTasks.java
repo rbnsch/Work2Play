@@ -3,8 +3,17 @@ package com.example.work2play;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.DatePicker;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import java.util.Calendar;

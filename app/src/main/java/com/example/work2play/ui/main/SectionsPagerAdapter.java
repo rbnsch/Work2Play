@@ -6,7 +6,10 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import com.example.work2play.*;
+import com.example.work2play.FragmentTasks;
+import com.example.work2play.FragmentRewards;
+import com.example.work2play.FragmentHabits;
+import com.example.work2play.R;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -15,7 +18,8 @@ import com.example.work2play.*;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{
+            R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {

@@ -2,7 +2,6 @@
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,12 +23,12 @@ import java.util.Locale;
  public class FragmentHabits extends Fragment {
 
     private static DatabaseHelper db;
-    View view;
-    static ListView habitList;
+    private View view;
+    private static ListView habitList;
     static ArrayList<HabitDataHelper> habits;
     static HabitListAdapter habitListAdapter;
-    static Popup popup = new HabitPopup();
-    static List<HabitDataHelper> allHabits;
+    private static Popup popup = new HabitPopup();
+    private static List<HabitDataHelper> allHabits;
 
     private static SharedPreferences lastMonday;
 

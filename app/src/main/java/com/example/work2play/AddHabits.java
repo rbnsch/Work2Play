@@ -25,7 +25,6 @@ public class AddHabits extends AppCompatActivity {
         String descripionStr = description.getText().toString();
         String numberRepStr = numberRep.getText().toString();
         String coinsAllStr = coinsAllView.getText().toString();
-        String coinsOneStr = coinsOneView.getText().toString();
 
         int coinsAllInt = Integer.parseInt(coinsAllStr);
         int coinsOneInt = Integer.parseInt(coinsAllStr);

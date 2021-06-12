@@ -24,13 +24,12 @@ import java.util.List;
 public class FragmentRewards extends Fragment {
 
     private static DatabaseHelper db;
-    View view;
+    private View view;
 
     static ArrayList<String> rewards;
-    static ListView rewardList;
-    static ArrayAdapter<String> arrayAdapterRewards;
-    static SQLiteDatabase rewardsDataBase;
-    static RewardPopup popup = new RewardPopup();
+    private static ListView rewardList;
+    private static ArrayAdapter<String> arrayAdapterRewards;
+    private static RewardPopup popup = new RewardPopup();
     static List<Reward> allRewards;
 
 
