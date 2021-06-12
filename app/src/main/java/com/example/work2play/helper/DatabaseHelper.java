@@ -17,15 +17,11 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public DatabaseHelper(@Nullable Context context) {
-        super(context, "name", null, 1);
-    }
-
     private static final String LOG = "DatabaseHelper";
 
-    private static final int DATABASE_VERSION = 1;
+    //private static final int DATABASE_VERSION = 1;
 
-    private static final String DATABASE_NAME = "workPlay";
+    //private static final String DATABASE_NAME = "workPlay";
 
     private static final String TABLE_TASK = "tasks";
     private static final String TABLE_REWARD = "rewards";
@@ -79,6 +75,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_NUMBER_REP + " INTEGER,"
             + KEY_NUMBER_REP_DONE + " INTEGER"
             + ")";
+
+    public DatabaseHelper(@Nullable Context context) {
+        super(context, "name", null, 1);
+    }
 
 
     @Override

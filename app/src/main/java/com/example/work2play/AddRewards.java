@@ -1,12 +1,16 @@
 package com.example.work2play;
 
-import android.util.Log;
+
 import android.view.View;
-import android.widget.*;
+
+import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.SeekBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.ArrayList;
 
 public class AddRewards extends AppCompatActivity {
 

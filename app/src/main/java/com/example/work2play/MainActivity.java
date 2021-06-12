@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(addReward);
                         break;
                     default:
-                        int a =5;
                         break;
                 }
 

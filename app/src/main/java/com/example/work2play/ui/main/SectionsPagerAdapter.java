@@ -36,7 +36,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 fragment = new FragmentRewards();
                 break;
-
+            default:
+                break;
         }
         return fragment;
     }

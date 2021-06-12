@@ -1,21 +1,18 @@
 package com.example.work2play;
 
-import android.content.Context;
-import android.database.Cursor;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import com.example.work2play.helper.DatabaseHelper;
-import com.example.work2play.model.Reward;
 import com.example.work2play.model.Task;
 
 
