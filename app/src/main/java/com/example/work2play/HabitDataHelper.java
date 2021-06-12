@@ -1,23 +1,40 @@
 package com.example.work2play;
 
 public class HabitDataHelper {
-    private String description;
+    private int id;
+    private String title;
     private int numberRep;
     private int numberRepDone;
     private int coinsOne;
     private int coinsAll;
 
-    public HabitDataHelper(String description, int numberRep, int numberRepDone, int coinsOne, int coinsAll) {
-        this.description = description;
+
+    public HabitDataHelper() {
+
+    }
+
+    public HabitDataHelper(String title, int numberRep, int numberRepDone, int coinsOne, int coinsAll) {
+        this.title = title;
         this.numberRep = numberRep;
         this.numberRepDone = numberRepDone;
         this.coinsOne = coinsOne;
         this.coinsAll = coinsAll;
     }
+    public HabitDataHelper(int id, String title, int coinsOne, int coinsAll, int numberRep, int numberRepDone) {
+        this.id = id;
+        this.title = title;
+        this.coinsOne = coinsOne;
+        this.coinsAll = coinsAll;
+        this.numberRep = numberRep;
+        this.numberRepDone = numberRepDone;
+    }
 
+    public int getId() {
+        return id;
+    }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return title;
     }
 
     public int getNumberRep() {
@@ -36,9 +53,15 @@ public class HabitDataHelper {
         return coinsAll;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 
     public void setNumberRep(int numberRep) {
         this.numberRep = numberRep;
