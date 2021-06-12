@@ -10,19 +10,22 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
+import com.example.work2play.helper.DatabaseHelper;
 
 
 interface Popup{
 
-    public void showPopup(final int position, FragmentActivity currActivity);
+    public void showPopup(final int position, FragmentActivity currActivity, DatabaseHelper db);
 
 
 }
 
 class TaskPopup extends Fragment implements Popup{
 
-    public void showPopup(final int position, FragmentActivity currActivity) {
+    DatabaseHelper db;
+
+    public void showPopup(final int position, FragmentActivity currActivity, DatabaseHelper db) {
+        this.db = db;
 
         View popupView = LayoutInflater.from(currActivity).inflate(R.layout.task_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
@@ -59,14 +62,12 @@ class TaskPopup extends Fragment implements Popup{
     }
 
     public void deleteItem(int position){
-        String deleteEntry = FragmentTasks.tasks.get(position);
-        String[] seperatedEntry = deleteEntry.split(" - ");
+        db.deleteTask(FragmentTasks.allTasks.get(position).getId());
 
-        FragmentTasks.tasksDataBase.execSQL("DELETE FROM tasks WHERE task = ('" + seperatedEntry[1] + "')");
-        FragmentTasks.tasks.remove(position);
+        FragmentTasks.reloadTaskListView();
 
-        FragmentTasks.taskList.setAdapter(FragmentTasks.arrayAdapterTasks);
     }
+
 
     public void finishTask(int position){
         String newCoinsString = FragmentTasks.tasks.get(position).substring(0,2);
@@ -80,8 +81,11 @@ class TaskPopup extends Fragment implements Popup{
 
 class HabitPopup extends Fragment implements Popup{
 
-    public void showPopup(final int position, final FragmentActivity currActivity) {
+    DatabaseHelper db;
 
+    public void showPopup(final int position, final FragmentActivity currActivity, DatabaseHelper db) {
+
+        this.db = db;
         View popupView = LayoutInflater.from(currActivity).inflate(R.layout.habit_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
@@ -118,11 +122,9 @@ class HabitPopup extends Fragment implements Popup{
     }
 
     public void deleteItem(int position){
+        db.deleteHabit(FragmentHabits.habits.get(position).getId());
+        FragmentHabits.reloadHabitListView();
 
-        FragmentHabits.habits.set(position, null);
-        FragmentHabits.habits.remove(position);
-
-        FragmentHabits.habitList.setAdapter(FragmentHabits.habitListAdapter);
 
     }
 
@@ -141,7 +143,7 @@ class HabitPopup extends Fragment implements Popup{
         else {
             Toast.makeText(currActivity, "Already Finished", Toast.LENGTH_LONG).show();
         }
-
+        db.updateHabit(currHabit);
         FragmentHabits.habitListAdapter.notifyDataSetChanged();
 
         int coins = MainActivity.getCoins();
@@ -150,7 +152,12 @@ class HabitPopup extends Fragment implements Popup{
 }
 
 class RewardPopup extends Fragment implements Popup {
-    public void showPopup(final int position, final FragmentActivity currActivity){
+
+    DatabaseHelper db;
+
+    public void showPopup(final int position, final FragmentActivity currActivity, DatabaseHelper db){
+        this.db = db;
+
         View popupView = LayoutInflater.from(currActivity).inflate(R.layout.reward_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
@@ -185,14 +192,10 @@ class RewardPopup extends Fragment implements Popup {
     }
 
     public void deleteItem(int position){
-        String deleteEntry = FragmentRewards.rewards.get(position);
-        String[] seperatedEntry = deleteEntry.split(" - ");
-        Log.i("Delete", seperatedEntry[1] + " nene");
+        db.deleteReward(FragmentRewards.allRewards.get(position).getId());
 
-        FragmentRewards.rewardsDataBase.execSQL("DELETE FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')");
-        FragmentRewards.rewards.remove(position);
+        FragmentRewards.reloadRewardListView();
 
-        FragmentRewards.rewardList.setAdapter(FragmentRewards.arrayAdapterRewards);
 
     }
 
@@ -209,24 +212,11 @@ class RewardPopup extends Fragment implements Popup {
         } else {
             coins -= newCoins;
             MainActivity.setCoins(coins);
-            String deleteEntry = FragmentRewards.rewards.get(position);
-            String[] seperatedEntry = deleteEntry.split(" - ");
-            Cursor c = FragmentRewards.rewardsDataBase.rawQuery("SELECT multiple FROM rewards WHERE reward = ('" + seperatedEntry[1] + "')", null);
-            c.moveToFirst();
-            String mul = "0";
-            int multipleIndex = c.getColumnIndex("multiple");
 
-            if(c.moveToFirst()){
-                do{
-                    mul = c.getString(multipleIndex);
-                }
-                while (c.moveToNext());
+            if (FragmentRewards.allRewards.get(position).getRepeatable() != 1) {
+                deleteItem(position);
             }
 
-            int temp = Integer.parseInt(mul);
-            boolean multiple = (temp == 1);
-
-            Log.i("multiple", String.valueOf(multiple));
         }
 
     }
