@@ -38,7 +38,6 @@ public class HabitListAdapter extends ArrayAdapter<HabitDataHelper> {
         int coinsAll = getItem(position).getCoinsOne();
 
 
-        HabitDataHelper habitDataHelper = new HabitDataHelper(title, numberRep, numberRepDone, coinsOne, coinsAll);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent, false);

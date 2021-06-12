@@ -19,7 +19,6 @@ public class AddHabits extends AppCompatActivity {
     public void saveAddHabits(View view) {
         EditText description = findViewById(R.id.editTextHabit);
         TextView coinsAllView = findViewById(R.id.textViewCoinsHabitsAll);
-        TextView coinsOneView = findViewById(R.id.textViewCoinsHabitsOne);
         EditText numberRep = findViewById((R.id.editTextRep));
 
         String descripionStr = description.getText().toString();
