@@ -82,7 +82,7 @@ public class MyStepdefs{
 
     @When("^I hold click on a Reward$")
     public void iHoldClickOnAReward() {
-        onData(hasToString(startsWith("30 - Eis essen")))
+        onData(hasToString(startsWith("")))
                 .inAdapterView(withId(R.id.listRewards)).atPosition(0)
                 .perform(longClick());
     }
@@ -117,27 +117,27 @@ public class MyStepdefs{
 
     @And("^the reward is set to unique$")
     public void theRewardIsSetToUnique() {
-        
+
     }
 
     @Then("^the required coins are subtracted$")
     public void theRequiredCoinsAreSubtracted() {
-        
+
     }
 
     @And("^I go back to the Rewards Tab$")
     public void iGoBackToTheRewardsTab() {
-        
+
     }
 
     @And("^the Reward is removed$")
     public void theRewardIsRemoved() {
-        
+
     }
 
     @And("^the reward is set to non unique$")
     public void theRewardIsSetToNonUnique() {
-        
+
     }
 
     @And("^I don't have enough coins$")
@@ -149,5 +149,68 @@ public class MyStepdefs{
     public void toastIsShown(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
+    }
+
+
+
+
+
+
+
+
+    @Before("@finish-task-feature")
+    public void setupFinishTasks() {
+
+    }
+
+    @After("@finish-task-feature")
+    public void tearDownTasks() {
+        mainActivityActivityTestRule.finishActivity();
+    }
+
+
+
+    @Given("^I am in the Tasks Tab$")
+    public void iAmInTheTasksTab() {
+        mainActivityActivityTestRule.launchActivity(new Intent());
+        activity = mainActivityActivityTestRule.getActivity();
+        assertNotNull(activity);
+        onView(withText("Tasks")).perform(click());
+    }
+
+    @When("^I hold click on a Task$")
+    public void iHoldClickOnATask() {
+        onData(hasToString(startsWith("")))
+                .inAdapterView(withId(R.id.listTasks)).atPosition(0)
+                .perform(longClick());
+    }
+
+    @And("^I click on the Finish Task Button$")
+    public void iClickOnTheFinishTaskButton() {
+        onView(withText("FINISH")).inRoot(isPopupWindow()).perform(click());
+    }
+
+    @And("^Task is not repeatable$")
+    public void taskIsNotRepeatable() {
+
+    }
+
+    @Then("^Coins are added$")
+    public void coinsAreAdded() {
+
+    }
+
+    @And("^I go back to the Task Tab$")
+    public void iGoBackToTheTaskTab() {
+
+    }
+
+    @And("^Task is repeatable$")
+    public void taskIsRepeatable() {
+
+    }
+
+    @And("^Task is removed$")
+    public void taskIsRemoved() {
     }
 }
