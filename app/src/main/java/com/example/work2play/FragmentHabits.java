@@ -28,11 +28,10 @@ import java.util.Locale;
     static ListView habitList;
     static ArrayList<HabitDataHelper> habits;
     static HabitListAdapter habitListAdapter;
-    static SQLiteDatabase habitsDataBase;
     static Popup popup = new HabitPopup();
     static List<HabitDataHelper> allHabits;
 
-     static SharedPreferences lastMonday;
+    private static SharedPreferences lastMonday;
 
 
      public static void setLastMonday(){

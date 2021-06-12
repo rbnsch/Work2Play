@@ -1,7 +1,6 @@
 package com.example.work2play;
 
-import android.database.Cursor;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,7 +21,7 @@ interface Popup{
 
 class TaskPopup extends Fragment implements Popup{
 
-    DatabaseHelper db;
+    private DatabaseHelper db;
 
     public void showPopup(final int position, FragmentActivity currActivity, DatabaseHelper db) {
         this.db = db;
@@ -81,7 +80,7 @@ class TaskPopup extends Fragment implements Popup{
 
 class HabitPopup extends Fragment implements Popup{
 
-    DatabaseHelper db;
+    private DatabaseHelper db;
 
     public void showPopup(final int position, final FragmentActivity currActivity, DatabaseHelper db) {
 
@@ -153,7 +152,7 @@ class HabitPopup extends Fragment implements Popup{
 
 class RewardPopup extends Fragment implements Popup {
 
-    DatabaseHelper db;
+    private DatabaseHelper db;
 
     public void showPopup(final int position, final FragmentActivity currActivity, DatabaseHelper db){
         this.db = db;

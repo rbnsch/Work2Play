@@ -3,52 +3,38 @@ package com.cucumber.work2play.test;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.service.autofill.Validator;
 import androidx.test.espresso.Root;
 import androidx.test.rule.ActivityTestRule;
-import android.view.View;
-import android.widget.EditText;
 
-import android.app.Activity;
-import android.content.Intent;
+
+
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.runner.AndroidJUnit4;
+
 import com.example.work2play.MainActivity;
 import com.example.work2play.R;
-import cucumber.api.CucumberOptions;
-import cucumber.api.PendingException;
-import cucumber.api.java.en.*;
-
-import com.example.work2play.MainActivity;
 
 
-
-import org.hamcrest.Description;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import org.hamcrest.Matcher;
 import org.junit.Rule;
-import org.junit.internal.matchers.TypeSafeMatcher;
 
-import static android.service.autofill.Validators.not;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static com.example.work2play.MainActivity.setCoins;
 import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.Matchers.*;
 
-import cucumber.api.CucumberOptions;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.When;
-import org.junit.Rule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
 
 
 public class MyStepdefs{
@@ -56,7 +42,6 @@ public class MyStepdefs{
     @Rule
     public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    int i = 0;
 
     private final ViewInteraction mFab = onView(withId(R.id.fab));
 

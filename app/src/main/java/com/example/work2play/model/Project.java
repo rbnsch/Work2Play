@@ -2,8 +2,8 @@ package com.example.work2play.model;
 
 public class Project {
 
-    int id;
-    String title;
+    private int id;
+    private String title;
 
     public Project() {
 

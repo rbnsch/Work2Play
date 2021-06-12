@@ -2,10 +2,10 @@ package com.example.work2play.model;
 
 public class Reward {
 
-    int id;
-    String title;
-    int coins;
-    int repeatable;
+    private int id;
+    private String title;
+    private int coins;
+    private int repeatable;
 
     public Reward() {
 

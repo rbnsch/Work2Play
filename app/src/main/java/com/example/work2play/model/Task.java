@@ -2,14 +2,14 @@ package com.example.work2play.model;
 
 public class Task {
 
-    int id;
-    String title;
-    String description;
-    int coins;
-    int repeatable;
-    String repeatFrequency;
-    int projectId;
-    String deadlineDate;
+    private int id;
+    private String title;
+    private String description;
+    private int coins;
+    private int repeatable;
+    private String repeatFrequency;
+    private int projectId;
+    private String deadlineDate;
 
     public Task() {
 
