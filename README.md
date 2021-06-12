@@ -1,0 +1,1 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cfd807ef76d145a39b169388c9c35049)](https://www.codacy.com/gh/rbnsch/Work2Play/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rbnsch/Work2Play&amp;utm_campaign=Badge_Grade)
