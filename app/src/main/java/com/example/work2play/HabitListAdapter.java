@@ -34,8 +34,7 @@ public class HabitListAdapter extends ArrayAdapter<HabitDataHelper> {
         String title = getItem(position).getTitle();
         int numberRep = getItem(position).getNumberRep();
         int numberRepDone = getItem(position).getNumberRepDone();
-        int coinsOne = getItem(position).getCoinsOne();
-        int coinsAll = getItem(position).getCoinsOne();
+
 
 
 
