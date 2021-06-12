@@ -22,7 +22,7 @@ import java.util.List;
 public class FragmentTasks extends Fragment {
 
     private static DatabaseHelper db;
-    private View view;
+
 
     static ArrayList<String> tasks;
     private static ListView taskList;
@@ -37,7 +37,7 @@ public class FragmentTasks extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
 
 
         taskList = view.findViewById(R.id.listTasks);

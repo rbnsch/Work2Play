@@ -23,7 +23,7 @@ import java.util.Locale;
  public class FragmentHabits extends Fragment {
 
     private static DatabaseHelper db;
-    private View view;
+
     private static ListView habitList;
     static ArrayList<HabitDataHelper> habits;
     static HabitListAdapter habitListAdapter;
@@ -75,7 +75,7 @@ import java.util.Locale;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_habits, container, false);
+        View view = inflater.inflate(R.layout.fragment_habits, container, false);
 
 
         habitList = view.findViewById(R.id.listHabits);

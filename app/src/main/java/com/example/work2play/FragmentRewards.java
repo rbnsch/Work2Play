@@ -24,7 +24,7 @@ import java.util.List;
 public class FragmentRewards extends Fragment {
 
     private static DatabaseHelper db;
-    private View view;
+
 
     static ArrayList<String> rewards;
     private static ListView rewardList;
@@ -37,7 +37,7 @@ public class FragmentRewards extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_rewards, container, false);
+        View view = inflater.inflate(R.layout.fragment_rewards, container, false);
 
         rewardList = view.findViewById(R.id.listRewards);
         rewards = new ArrayList<String>();
