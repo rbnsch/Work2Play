@@ -1,0 +1,260 @@
+@startuml
+class com.example.work2play.AddHabits {
++ void cancelAddHabits(View)
++ void saveAddHabits(View)
+# void onCreate(Bundle)
+}
+class com.example.work2play.HabitListAdapter {
+- Context mContext
+- int mResource
++ <<Create>> HabitListAdapter(Context,int,ArrayList<HabitDataHelper>)
++ View getView(int,View,ViewGroup)
+}
+class com.example.work2play.AddTasks {
+- DatePickerDialog datePickerDialog
+- Button dateButton
++ void cancelAddTask(View)
++ void saveAddTask(View)
+- String getTodaysDate()
+- void initDatepicker()
+- String makeDateString(int,int,int)
+- String getMonthFormat(int)
++ void openDatePicker(View)
+# void onCreate(Bundle)
++ void onItemSelected(AdapterView<?>,View,int,long)
++ void onNothingSelected(AdapterView<?>)
+}
+class com.example.work2play.ui.main.PageViewModel {
+- MutableLiveData<Integer> mIndex
+- LiveData<String> mText
++ void setIndex(int)
++ LiveData<String> getText()
+}
+class com.example.work2play.model.Reward {
+- int id
+- String title
+- int coins
+- int repeatable
++ <<Create>> Reward()
++ <<Create>> Reward(String,int,int)
++ <<Create>> Reward(int,String,int,int)
++ void setId(int)
++ void setTitle(String)
++ void setCoins(int)
++ void setRepeatable(int)
++ long getId()
++ String getTitle()
++ int getCoins()
++ int getRepeatable()
+}
+class com.example.work2play.AddRewards {
++ void cancelAddRewards(View)
++ void saveAddTask(View)
+# void onCreate(Bundle)
+}
+class com.example.work2play.FragmentHabits {
+- {static} DatabaseHelper db
+- {static} ListView habitList
+~ {static} ArrayList<HabitDataHelper> habits
+~ {static} HabitListAdapter habitListAdapter
+- {static} Popup popup
+- {static} List<HabitDataHelper> allHabits
+- {static} SharedPreferences lastMonday
++ {static} void setLastMonday()
++ {static} int getNewLastMonday()
++ {static} void resetHabits()
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ {static} void addHabit(HabitDataHelper)
++ {static} void reloadHabitListView()
+}
+class com.example.work2play.FragmentTasks {
+- {static} DatabaseHelper db
+~ {static} ArrayList<String> tasks
+- {static} ListView taskList
+- {static} ArrayAdapter<String> arrayAdapterTasks
+- {static} TaskPopup popup
+~ {static} List<Task> allTasks
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ {static} void addTask(String,int)
++ {static} void reloadTaskListView()
+}
+class com.example.work2play.ui.main.SectionsPagerAdapter {
+- {static} int[] TAB_TITLES
+- Context mContext
++ <<Create>> SectionsPagerAdapter(Context,FragmentManager)
++ Fragment getItem(int)
++ CharSequence getPageTitle(int)
++ int getCount()
+}
+class com.example.work2play.model.Project {
+- int id
+- String title
++ <<Create>> Project()
++ <<Create>> Project(String)
++ <<Create>> Project(int,String)
++ void setId(int)
++ void setTitle(String)
++ int getId()
++ String getTitle()
+}
+class com.example.work2play.model.Task {
+- int id
+- String title
+- String description
+- int coins
+- int repeatable
+- String repeatFrequency
+- int projectId
+- String deadlineDate
++ <<Create>> Task()
++ <<Create>> Task(String,String,int,int,String,int,String)
++ <<Create>> Task(int,String,String,int,int,String,int,String)
++ void setId(int)
++ void setTitle(String)
++ void setDescription(String)
++ void setCoins(int)
++ void setRepeatable(int)
++ void setRepeatFrequency(String)
++ void setProjectId(int)
++ void setDeadlineDate(String)
++ int getId()
++ String getTitle()
++ String getDescription()
++ int getCoins()
++ int getRepeatable()
++ String getRepeatFrequency()
++ int getProjectId()
++ String getDeadlineDate()
+}
+class com.example.work2play.helper.DatabaseHelper {
+- {static} String LOG
+- {static} String TABLE_TASK
+- {static} String TABLE_REWARD
+- {static} String TABLE_PROJECT
+- {static} String TABLE_HABIT
+- {static} String KEY_ID
+- {static} String KEY_COINS
+- {static} String KEY_TITLE
+- {static} String KEY_REPEATABLE
+- {static} String KEY_DESCRIPTION
+- {static} String KEY_REPEAT_FREQUENCY
+- {static} String KEY_PROJECT
+- {static} String KEY_DEADLINE
+- {static} String KEY_COINS_ONE
+- {static} String KEY_COINS_ALL
+- {static} String KEY_NUMBER_REP
+- {static} String KEY_NUMBER_REP_DONE
+- {static} String CREATE_TABLE_REWARD
+- {static} String CREATE_TABLE_TASK
+- {static} String CREATE_TABLE_PROJECT
+- {static} String CREATE_TABLE_HABIT
++ <<Create>> DatabaseHelper(Context)
++ void onCreate(SQLiteDatabase)
++ void onUpgrade(SQLiteDatabase,int,int)
++ long createReward(Reward)
++ List<Reward> getAllRewards()
++ void deleteReward(long)
++ long createTask(Task)
++ List<Task> getAllTasks()
++ void deleteTask(long)
++ long createProject(Project)
++ List<Project> getAllProjects()
++ void deleteProject(long)
++ long createHabit(HabitDataHelper)
++ ArrayList<HabitDataHelper> getAllHabits()
++ void deleteHabit(long)
++ int updateHabit(HabitDataHelper)
++ void closeDB()
+}
+class com.example.work2play.ui.main.PlaceholderFragment {
+- {static} String ARG_SECTION_NUMBER
+- PageViewModel pageViewModel
++ {static} PlaceholderFragment newInstance(int)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+class com.example.work2play.HabitDataHelper {
+- int id
+- String title
+- int numberRep
+- int numberRepDone
+- int coinsOne
+- int coinsAll
++ <<Create>> HabitDataHelper()
++ <<Create>> HabitDataHelper(String,int,int,int,int)
++ <<Create>> HabitDataHelper(int,String,int,int,int,int)
++ int getId()
++ String getTitle()
++ int getNumberRep()
++ int getNumberRepDone()
++ int getCoinsOne()
++ int getCoinsAll()
++ void setId(int)
++ void setTitle(String)
++ void setNumberRep(int)
++ void setNumberRepDone(int)
++ void setCoinsOne(int)
++ void setCoinsAll(int)
+}
+class com.example.work2play.MainActivity {
+- {static} int coins
+- {static} SharedPreferences savedCoins
+- {static} TextView coinsText
++ {static} int getCoins()
++ {static} void setCoins(int)
+# void onCreate(Bundle)
+}
+interface com.example.work2play.Popup {
++ void showPopup(int,FragmentActivity,DatabaseHelper)
+}
+class com.example.work2play.TaskPopup {
+- DatabaseHelper db
++ void showPopup(int,FragmentActivity,DatabaseHelper)
++ void deleteItem(int)
++ void finishTask(int)
+}
+class com.example.work2play.HabitPopup {
+- DatabaseHelper db
++ void showPopup(int,FragmentActivity,DatabaseHelper)
++ void deleteItem(int)
++ void finishHabit(int,FragmentActivity)
+}
+class com.example.work2play.RewardPopup {
+- DatabaseHelper db
++ void showPopup(int,FragmentActivity,DatabaseHelper)
++ void deleteItem(int)
++ void getCoins(int,FragmentActivity)
+}
+class com.example.work2play.FragmentRewards {
+- {static} DatabaseHelper db
+~ {static} ArrayList<String> rewards
+- {static} ListView rewardList
+- {static} ArrayAdapter<String> arrayAdapterRewards
+- {static} RewardPopup popup
+~ {static} List<Reward> allRewards
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ {static} void addReward(String,int,boolean)
++ {static} void reloadRewardListView()
+}
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.work2play.AddHabits
+android.widget.ArrayAdapter <|-- com.example.work2play.HabitListAdapter
+com.example.work2play.OnItemSelectedListener <|.. com.example.work2play.AddTasks
+androidx.appcompat.app.AppCompatActivity <|-- com.example.work2play.AddTasks
+androidx.lifecycle.ViewModel <|-- com.example.work2play.ui.main.PageViewModel
+androidx.appcompat.app.AppCompatActivity <|-- com.example.work2play.AddRewards
+androidx.fragment.app.Fragment <|-- com.example.work2play.FragmentHabits
+androidx.fragment.app.Fragment <|-- com.example.work2play.FragmentTasks
+androidx.fragment.app.FragmentPagerAdapter <|-- com.example.work2play.ui.main.SectionsPagerAdapter
+android.database.sqlite.SQLiteOpenHelper <|-- com.example.work2play.helper.DatabaseHelper
+androidx.fragment.app.Fragment <|-- com.example.work2play.ui.main.PlaceholderFragment
+androidx.appcompat.app.AppCompatActivity <|-- com.example.work2play.MainActivity
+com.example.work2play.Popup <|.. com.example.work2play.TaskPopup
+androidx.fragment.app.Fragment <|-- com.example.work2play.TaskPopup
+com.example.work2play.Popup <|.. com.example.work2play.HabitPopup
+androidx.fragment.app.Fragment <|-- com.example.work2play.HabitPopup
+com.example.work2play.Popup <|.. com.example.work2play.RewardPopup
+androidx.fragment.app.Fragment <|-- com.example.work2play.RewardPopup
+androidx.fragment.app.Fragment <|-- com.example.work2play.FragmentRewards
+@enduml
