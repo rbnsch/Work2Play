@@ -28,7 +28,6 @@ Feature: Reward(CRUD)
       | watching a movie (2h30) |
       | Go to pub with Karl     |
       | watch one episode (1h)  |
-      |                         |
 
   Scenario Outline: Buy repeatable reward
     And at least one reward is already created
