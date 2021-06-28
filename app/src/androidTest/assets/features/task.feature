@@ -1,4 +1,5 @@
-Feature:Task(CRUD)
+Feature: Task(CRUD)
+
   Background:
     Given I am in the Tasks tab
 
@@ -32,30 +33,3 @@ Feature:Task(CRUD)
       | clean room          |
       | bring car to garage |
 
-  Scenario Outline: Finishing non repeatable Task
-    And at least one Task is already created
-    And Task is non repeatable <repeatable>
-    When I hold click on a task <task>
-    And I press the "FINISH" button
-    Then the earned coins are added <coins>
-    And the task is deleted
-    And menu disappears
-    Examples:
-      | task                | repeatable   | coins |
-      | finish CV           | no           | 25    |
-      | clean room          | yes          | 10    |
-      | bring car to garage | no           | 15    |
-
-
-  Scenario Outline: Finishing repeatable Task
-    And at least one Task is already created
-    And Task is repeatable <repeatable>
-    When I hold click on a task <task>
-    And I press the "FINISH" button
-    Then the earned coins are added <coins>
-    And menu disappears
-    Examples:
-      | task                | repeatable   | coins |
-      | finish CV           | no           | 25    |
-      | clean room          | yes          | 10    |
-      | bring car to garage | no           | 15    |
