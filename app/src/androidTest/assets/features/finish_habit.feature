@@ -1,4 +1,7 @@
 Feature: Finish Habit
+  This feature file tests the completion of Habits.
+  It tests the completion of one habit and the completion of all habits of one type.
+  It also checks if the coins are charged accordingly.
 
   Background:
     Given I am in Habits Tab

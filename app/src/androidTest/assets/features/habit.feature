@@ -1,4 +1,5 @@
 Feature: Habit(CRUD)
+  This feature file is a CRUD and tests the creation and deletion of habits.
 
   Background:
     Given I am in Habits Tab

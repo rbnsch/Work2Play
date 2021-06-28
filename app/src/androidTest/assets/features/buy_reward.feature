@@ -1,5 +1,6 @@
 Feature: Buy Reward
-
+  his feature file tests buying rewards.
+  It checks if there are enough coins and then distinguishes if you can redeem the reward more than once.
 
   Background:
     Given I am in the Rewards Tab

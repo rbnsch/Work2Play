@@ -1,4 +1,5 @@
 Feature: Finish Task
+  This feature file tests the completion of tasks and whether it is deleted after completion.
 
   Background:
     Given I am in the Tasks Tab

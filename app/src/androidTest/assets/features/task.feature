@@ -1,4 +1,5 @@
 Feature: Task(CRUD)
+  This feature file is a CRUD and tests the creation and deletion of tasks.
 
   Background:
     Given I am in the Tasks tab

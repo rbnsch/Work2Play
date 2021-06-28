@@ -1,7 +1,8 @@
 Feature: Reward(CRUD)
+  This feature file is a CRUD and tests the creation and deletion of rewards.
 
   Background:
-    Given I am in Rewards tab
+    Given I am in the Rewards Tab
 
   Scenario Outline: Create Reward
     When I click on "+" button
